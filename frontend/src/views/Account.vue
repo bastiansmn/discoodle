@@ -53,6 +53,17 @@ export default {
    },
    beforeMount() {
       this.isAuthentificated = vueCookie.get("username") !== null && vueCookie.get("username") !== "";
+   },
+   mounted() {
+      const cookie = vueCookie.get("fastAccess");
+
+      if (cookie !== null) {
+         if (!cookie.includes("Compte|/compte;")) {
+            vueCookie.set("fastAccess", `Compte|/compte;${cookie}`, {expires: '1Y'});
+         }
+      } else {
+         vueCookie.set("fastAccess", "Compte|/compte;", {expires: '1Y'});
+      }
    }
 }
 </script>

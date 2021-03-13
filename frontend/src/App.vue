@@ -32,10 +32,12 @@
                      <span class="headerNavbar">ACCÈS RAPIDE</span>
                      <div class="links">
                         <!-- Mettre les liens de l'accès rapide ici -->
+                        <router-link :key="elt" v-for="elt in fastAccess" :to="elt.path">
+                           <div class="navbar-icon"><img style="height: 70%;" src="./assets/arrow.svg" :alt="elt.name"></div>
+                           <span :style="{ color: getColors.color5 }">{{ elt.name.toUpperCase() }}</span>
+                        </router-link>
                      </div>
                   </div>
-
-                  <!-- TODO : Implementer l'accès rapide -->
 
                </div>
             </div>
@@ -63,6 +65,13 @@ export default {
    methods: {
       ...mapActions(['switchTheme', 'setUser'])
    },
+   data() {
+      return {
+         fastAccess: [
+
+         ]
+      }
+   },
    computed: {
       ...mapGetters(['getColors', 'getTheme'])
    },
@@ -73,6 +82,22 @@ export default {
             console.log(user);
             this.setUser(user);
          });
+      }
+
+      const fastAccess = vueCookie.get("fastAccess");
+      console.log(fastAccess);
+
+      if (fastAccess !== null) {
+         console.log(fastAccess);
+         const items = fastAccess.split(";");
+
+         items.forEach(elt => {
+            const toAdd = elt.split("|");
+            this.fastAccess.push({
+               name: toAdd[0],
+               path: toAdd[1]
+            })
+         })
       }
    }
 }
@@ -152,7 +177,7 @@ export default {
    margin-right: 20px;
 }
 
-.menu > .links > .router-link-active .navbar-icon {
+.links > .router-link-active .navbar-icon {
    background-color: #e85c5c;
 }
 

@@ -57,6 +57,7 @@ import Stomp from "stompjs";
 import {mapGetters} from "vuex";
 import axios from 'axios';
 import Message from "@/components/common/Message";
+import vueCookie from "vue-cookie";
 
 let stompClient = null;
 
@@ -76,6 +77,16 @@ export default {
    mounted() {
       this.getMessagesFromJSON();
       this.connect();
+
+      const cookie = vueCookie.get("fastAccess");
+
+      if (cookie !== null) {
+         if (!cookie.includes(`${ this.$route.query.name }|/messages/${this.getCurrentConv};`)) {
+            vueCookie.set("fastAccess", `${ this.$route.query.name }|/messages/${this.getCurrentConv};${cookie}`, {expires: '1Y'});
+         }
+      } else {
+         vueCookie.set("fastAccess", `${ this.$route.query.name }|/messages/${this.getCurrentConv};`, {expires: '1Y'});
+      }
    },
    beforeRouteUpdate() {
       this.disconnect();
