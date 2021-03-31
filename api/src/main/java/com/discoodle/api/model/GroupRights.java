@@ -18,10 +18,9 @@ import java.util.List;
 @Table(name = "group_rights")
 public class GroupRights {
 
-    public GroupRights(boolean canDeleteUser, boolean canAddUser, boolean canModify) {
+    public GroupRights(boolean canDeleteUser, boolean canAddUser) {
         this.canDeleteUser = canDeleteUser;
         this.canAddUser = canAddUser;
-        this.canModify=canModify;
     }
 
     @Id
@@ -35,6 +34,4 @@ public class GroupRights {
     @Column(name = "can_add_user")
     private boolean canAddUser;
 
-    @Column(name = "can_modify")
-    private boolean canModify;
 }
