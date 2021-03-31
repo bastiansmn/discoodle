@@ -1,13 +1,4 @@
 export default {
-    'Frequently used': {
-        'thumbs_up': '👍',
-        'thumbs_down': '👎',
-        'sob': '😭',
-        'confused': '😕',
-        'neutral_face': '😐',
-        'blush': '😊',
-        'heart_eyes': '😍',
-    },
     'People': {
         'smile': '😄',
         'smiley': '😃',

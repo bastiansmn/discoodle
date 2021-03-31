@@ -54,7 +54,8 @@
             <input type="text" autocomplete="off" :placeholder="`Envoyer un message à ${ $route.query.name }`"
                    @keydown="actionInput">
             <div class="right-side-input">
-               <button style="height: 32px; width: 32px;">
+               <EmojiPicker @selected-emoji="insertEmoji" @closeEmoji="showEmojis = false" v-if="showEmojis" class="emojiPicker" />
+               <button style="height: 32px; width: 32px;" @click="showEmojis = !showEmojis">
                   <img src="../assets/happy.svg" alt="Smiley">
                </button>
                <button class="submit-file">
@@ -74,12 +75,14 @@ import axios from 'axios';
 import marked from "marked";
 import Message from "@/components/common/Message";
 import emojis from "@/assets/emojis_uncathegorized";
+import EmojiPicker from "@/components/EmojiPicker";
 
 let stompClient = null;
 
 export default {
    name: "ChatContent",
    components: {
+      EmojiPicker,
       Message
    },
    data() {
@@ -89,6 +92,7 @@ export default {
          user: "",
          writers: [],
          showPinned: false,
+         showEmojis: false,
          pinAdd: false,
       }
    },
@@ -284,6 +288,9 @@ export default {
             type: "EDITED"
          }));
       },
+      addEmoji(event) {
+         console.log(event);
+      },
 
       filterEmoji(content){
          // Regex to match with the emoji string encode ( ':xxxxx_xxx_xxx_xxx:' where '_' is optionnal )
@@ -316,6 +323,10 @@ export default {
             content = this.filterMarkdown(content);
          return content;
       },
+
+      insertEmoji(emoji) {
+         document.querySelector(".conv-input > div > input").value += emoji;
+      }
    },
    computed: {
       ...mapGetters(['getColors', 'getTheme', 'getCurrentConv', 'getUser'])
@@ -420,13 +431,14 @@ button {
 }
 
 .right-side-input {
+   position: relative;
    display: flex;
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
 
    height: 44px;
-   width: 90px;
+   width: 80px;
 }
 
 .submit-file {
@@ -544,6 +556,13 @@ button {
 
 .unpin-message:hover {
    transform: scale(1.1);
+}
+
+.emojiPicker {
+   position: absolute;
+   top: -10px;
+   left: 32px;
+   transform: translateX(-100%) translateY(-100%);
 }
 
 @keyframes appear-opacity {
