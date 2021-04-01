@@ -83,7 +83,7 @@ export default {
    content: "";
    position: fixed;
    background-color: #2d2d2d;
-   opacity: 0.3;
+   opacity: 0.7;
    width: 100vw;
    height: 100vh;
 }

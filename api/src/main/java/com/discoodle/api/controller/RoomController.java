@@ -36,9 +36,16 @@ public class RoomController {
 		return roomService.createNewRoom(request.getRoom_name(), request.getRoom_members());
 	}
 
+	/*
 	@PostMapping(path = "/api/room/{room_id}/room.add")
 	public Optional<Room> addNewMembers(@PathVariable String room_id, @RequestBody Room.RoomRequest request){
 		return roomService.addNewMembers(room_id, request.getRoom_members());
+	}
+	 */
+
+	@PostMapping(path = "/api/room/{room_id}/room.add")
+	public void addnewMember(@PathVariable String room_id, @RequestParam(value = "user_id") Long user_id) {
+		roomService.addNewMember(room_id, user_id);
 	}
 
 	@PostMapping(path = "/api/room/changeLinkPicture/{room_id}")

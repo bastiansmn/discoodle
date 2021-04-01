@@ -32,6 +32,10 @@ public class RoomService {
         return roomRepository.findRoomByUUID(room_id);
     }
 
+    public void addNewMember(String room_id, Long user_id) {
+        roomRepository.addNewMember(room_id, user_id);
+    }
+
     public Optional<Room> changeLinkPicture(String room_id, String link_to_avatar) {
         if(roomRepository.changeLinkPicture(room_id, link_to_avatar) == 1) {
             return roomRepository.findRoomByUUID(room_id);

@@ -1,5 +1,5 @@
 <template>
-   <div class="AddConversation" @click="clickEvent">
+   <div class="AddConversation" @mousedown="clickEvent">
       <div class="add-conv-box">
          Créer une nouvelle discussion ici :
 
