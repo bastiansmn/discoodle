@@ -24,6 +24,12 @@
     <!-- Porject main properties -->
     <properties>
         <main.basedir>${project.basedir}</main.basedir>
+        <skipTests>true</skipTests>
+        <db.port>3306</db.port>
+        <db.username>root</db.username>
+        <db.password>root</db.password>
+        <db.host>localhost</db.host>
+        <mainClass>com.discoodle.api.ApiApplication</mainClass>
     </properties>
 
     <modules>
@@ -33,17 +39,8 @@
         <module>frontend</module>
     </modules>
 
-
     <!-- Devteam with emails -->
     <developers>
-        <developer>
-            <name>Moïse CLIPAL</name>
-            <email>elymo.mc@gmail.com</email>
-        </developer>
-        <developer>
-            <name>Jylan PAYET</name>
-            <email>jylanpayet@gmail.com</email>
-        </developer>
         <developer>
             <name>Dylan ALEXANDRE</name>
             <email>dylan_alexandre@outlook.fr</email>
@@ -51,6 +48,14 @@
         <developer>
             <name>Bastian SOMON</name>
             <email>bastian.somon@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Jylan PAYET</name>
+            <email>jylanpayet@gmail.com</email>
+        </developer>
+        <developer>
+            <name>Moïse CLIPAL</name>
+            <email>elymo.mc@gmail.com</email>
         </developer>
     </developers>
 

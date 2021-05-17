@@ -1,66 +1,63 @@
 <template>
-   <div id="root" :style="{ backgroundColor: getColors.color1 }">
-      <div id="nav">
-         <div class="discoodle-title" :style="{ color: getColors.color5 }">
-            Discoodle
-         </div>
-         <div class="navbar-visible-box">
-            <div class="navbar-content-box">
-               <div class="menu">
-                  <span class="headerNavbar">MENU</span>
-                  <div class="links">
-                     <router-link to="/accueil">
-                        <div class="navbar-icon"><img src="./assets/home.png" alt="Home"></div>
-                        <span :style="{ color: getColors.color5 }">ACCUEIL</span></router-link>
-                     <router-link to="/cours">
-                        <div class="navbar-icon"><img src="./assets/courses.png" alt="Courses"></div>
-                        <span :style="{ color: getColors.color5 }">COURS</span></router-link>
-                     <router-link to="/messages">
-                        <div class="navbar-icon"><img src="./assets/messages.png" alt="Messages"></div>
-                        <span :style="{ color: getColors.color5 }">MESSAGES</span></router-link>
-                     <router-link to="/planning">
-                        <div class="navbar-icon"><img src="./assets/planning.png" alt="Planning"></div>
-                        <span :style="{ color: getColors.color5 }">PLANNING</span></router-link>
-                     <router-link to="/compte">
-                        <div class="navbar-icon"><img src="./assets/account.png" alt="Account"></div>
-                        <span :style="{ color: getColors.color5 }">COMPTE</span></router-link>
+   <w-app>
+      <div id="root" :style="{ backgroundColor: getColors.color1 }">
+         <div id="nav">
+            <div class="discoodle-title" :style="{ color: getColors.color5 }">
+               Discoodle
+            </div>
+            <div class="navbar-visible-box">
+               <div class="navbar-content-box">
+                  <div class="menu">
+                     <span class="headerNavbar">MENU</span>
+                     <div class="links">
+                        <router-link to="/accueil">
+                           <div class="navbar-icon"><img src=assets/home.png alt="Home"></div>
+                           <span :style="{ color: getColors.color5 }">ACCUEIL</span></router-link>
+                        <router-link to="/groupes" @click="setGroup({})">
+                           <div class="navbar-icon"><img src="assets/courses.png" alt="Courses"></div>
+                           <span :style="{ color: getColors.color5 }">COURS</span></router-link>
+                        <router-link to="/messages">
+                           <div class="navbar-icon"><img src="assets/messages.png" alt="Messages"></div>
+                           <span :style="{ color: getColors.color5 }">MESSAGES</span></router-link>
+                        <router-link to="/compte">
+                           <div class="navbar-icon"><img src="assets/account.png" alt="Account"></div>
+                           <span :style="{ color: getColors.color5 }">COMPTE</span></router-link>
+                     </div>
                   </div>
                </div>
-
-               <div class="fast-access">
-                  <span class="headerNavbar">ACCÈS RAPIDE</span>
-                  <div class="links">
-                     <!-- Mettre les liens de l'accès rapide ici -->
-                  </div>
-               </div>
-
-               <!-- TODO : Implementer l'accès rapide -->
-
             </div>
          </div>
-         <div class="theme-switcher">
-            <div>
-               <input type="checkbox" id="switch" @change="switchTheme" checked/><label for="switch">Toggle</label>
-               <span class="headerNavbar" style="margin-left: 20px;">{{ getTheme ? "NIGHT" : "DAY" }} MODE</span>
-            </div>
+         <div id="content">
+            <router-view />
          </div>
       </div>
-      <div id="content">
-         <router-view/>
-      </div>
-   </div>
+   </w-app>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
+import {mapGetters, mapActions} from "vuex"
+import vueCookie from "vue-cookie"
+import axios from "axios";
 
 export default {
    name: "App",
+   components: {
+
+   },
    methods: {
-      ...mapActions(['switchTheme'])
+      ...mapActions(['setUser', 'setGroup']),
    },
    computed: {
-      ...mapGetters(['getColors', 'getTheme'])
+      ...mapGetters(['getColors'])
+   },
+   mounted() {
+      if (vueCookie.get("username") !== null && vueCookie.get("username") !== "") {
+         axios.get(`http://localhost:8080/api/users/findByUserName?username=${vueCookie.get("username")}`).then(response => {
+            const user = response.data;
+            if (!user.locked)
+               this.setUser(user);
+         });
+      }
    }
 }
 </script>
@@ -79,7 +76,9 @@ export default {
 }
 
 #nav {
-   min-width: 270px;
+   width: 20%;
+   min-width: 220px;
+   max-width: 300px;
    height: 100%;
 }
 
@@ -107,16 +106,6 @@ export default {
 
    width: 100%;
    height: calc(100% - 260px);
-}
-
-.navbar-visible-box::-webkit-scrollbar {
-   width: 3px;
-}
-
-
-.navbar-visible-box::-webkit-scrollbar-thumb {
-   background: #454150;
-   border-radius: 15px;
 }
 
 .navbar-content-box {
@@ -150,7 +139,7 @@ export default {
 }
 
 .menu > .links > .router-link-active .navbar-icon {
-   background-color: #E85C5C;
+   background-color: #e85c5c;
 }
 
 .router-link-active .navbar-icon > img {
@@ -261,7 +250,9 @@ label[for="switch"]:after {
 
 
 #content {
-   width: calc(100% - 270px);
+   max-width: calc(100% - 220px);
+   width: 80%;
+   min-width: calc(100% - 300px);
    height: 100%;
 }
 
