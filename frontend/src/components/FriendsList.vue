@@ -55,9 +55,9 @@ export default {
    methods: {
       addUsers(users) {
          users.forEach(username => {
-            axios.get(`http://localhost:8080/api/users/findByUserName?username=${username}`).then(response => {
+            axios.get(`/api/users/findByUserName?username=${username}`).then(response => {
                if (response.data && response.data.id !== this.getUser.id) {
-                  axios.post(`http://localhost:8080/api/friendships/inviteMembers?user_id=${this.getUser.id}`, {
+                  axios.post(`/api/friendships/inviteMembers?user_id=${this.getUser.id}`, {
                      friendships: [response.data.id]
                   }).then(() => {
                      this.alertText = "Utilisateur(s) ajouté(s)"
@@ -72,8 +72,8 @@ export default {
          this.showAddFriends = false;
       },
       acceptInvite(friend_id) {
-         axios.put(`http://localhost:8080/api/friendships/acceptInvitation?sender_id=${friend_id}&receiver_id=${this.getUser.id}`).then(() => {
-            axios.get(`http://localhost:8080/api/users/infos?user_id=${friend_id}`).then(friend => {
+         axios.put(`/api/friendships/acceptInvitation?sender_id=${friend_id}&receiver_id=${this.getUser.id}`).then(() => {
+            axios.get(`/api/users/infos?user_id=${friend_id}`).then(friend => {
                const temp = {
                   id: friend.data.id,
                   username: friend.data.username,
@@ -96,8 +96,8 @@ export default {
          })
       },
       refuseInvite(friend_id) {
-         axios.delete(`http://localhost:8080/api/friendships/refuseInvitation?sender_id=${friend_id}&receiver_id=${this.getUser.id}`).then(() => {
-            axios.get(`http://localhost:8080/api/users/infos?user_id=${friend_id}`).then(friend => {
+         axios.delete(`/api/friendships/refuseInvitation?sender_id=${friend_id}&receiver_id=${this.getUser.id}`).then(() => {
+            axios.get(`/api/users/infos?user_id=${friend_id}`).then(friend => {
                const temp = {
                   id: friend.data.id,
                   username: friend.data.username,
@@ -136,10 +136,10 @@ export default {
    mounted() {
       if (!(JSON.stringify(this.getUser) === JSON.stringify({}))) {
          // Get all pending invites for the user.
-         axios.get(`http://localhost:8080/api/friendships/getAllInvitations?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`/api/friendships/getAllInvitations?user_id=${this.getUser.id}`).then(response => {
             response.data.forEach(elt => {
                if (!elt.status) {
-                  axios.get(`http://localhost:8080/api/users/infos?user_id=${elt.sender_id}`).then(friend => {
+                  axios.get(`/api/users/infos?user_id=${elt.sender_id}`).then(friend => {
                      const temp = {
                         id: friend.data.id,
                         username: friend.data.username,
@@ -154,7 +154,7 @@ export default {
          })
 
          // Get all friends of a user.
-         axios.get(`http://localhost:8080/api/users/seeAllFriends?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`/api/users/seeAllFriends?user_id=${this.getUser.id}`).then(response => {
             this.setFriends([]);
             response.data.forEach(elt => {
                const temp = {

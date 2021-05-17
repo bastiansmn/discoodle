@@ -73,7 +73,7 @@ export default {
 
    methods: {
       connect() {
-         let ws = new SockJS("http://localhost:8080/ws");
+         let ws = new SockJS("/ws");
          stompClient = Stomp.over(ws);
          // Comment the next line if you want to show websocket's logs
          stompClient.debug = null

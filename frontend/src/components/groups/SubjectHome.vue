@@ -47,7 +47,7 @@ export default {
       }
    },
    beforeRouteUpdate() {
-      axios.get(`http://localhost:8080/common/groups/${this.getGroup.groups_id}/cours.md`).then(rep => {
+      axios.get(`/common/groups/${this.getGroup.groups_id}/cours.md`).then(rep => {
          this.content = marked(rep.data);
       }).catch(() => {
          console.log("IMPOSSIBLE DE CHARGER LE MARKDOWN DU COURS");
@@ -55,7 +55,7 @@ export default {
       });
 
       // Get rights of user in this group.
-      axios.get(`http://localhost:8080/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")
@@ -89,7 +89,7 @@ export default {
       })
    },
    mounted() {
-      axios.get(`http://localhost:8080/common/groups/${this.getGroup.groups_id}/cours.md`).then(rep => {
+      axios.get(`/common/groups/${this.getGroup.groups_id}/cours.md`).then(rep => {
          this.content = marked(rep.data);
       }).catch(() => {
          console.log("IMPOSSIBLE DE CHARGER LE MARKDOWN DU COURS");
@@ -97,7 +97,7 @@ export default {
       });
 
       // Get rights of user in this group.
-      axios.get(`http://localhost:8080/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")

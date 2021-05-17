@@ -300,7 +300,7 @@ export default {
          let temp = new FormData();
          temp.append("file", file);
          axios({
-            url: `http://localhost:8080/api/uploadfile/uploadAvatar?user_id=${this.getUser.id}`,
+            url: `/api/uploadfile/uploadAvatar?user_id=${this.getUser.id}`,
             method: 'POST',
             data: temp,
             headers: {
@@ -313,7 +313,7 @@ export default {
       },
       removeLinkToAvatar() {
          if (this.getUser.link_to_avatar !== null) {
-            axios.delete(`http://localhost:8080/api/uploadfile/deleteAvatar?user_id=${this.getUser.id}`).then(response => {
+            axios.delete(`/api/uploadfile/deleteAvatar?user_id=${this.getUser.id}`).then(response => {
                if (response.data) {
                   this.setLinkToAvatar(null);
                }
@@ -321,7 +321,7 @@ export default {
          }
       },
       getUnderGroups(parent_id) {
-         return axios.get(`http://localhost:8080/api/groups/underGroup?group_id=${parent_id}`)
+         return axios.get(`/api/groups/underGroup?group_id=${parent_id}`)
       },
       updateGroup(res) {
          this.getUnderGroups(res.group.groups_id).then(rep => {
@@ -341,8 +341,8 @@ export default {
       },
 
       updateEstablishment() {
-         axios.get("http://localhost:8080/api/groups/findIDOfDiscoodle").then(response => {
-            axios.get(`http://localhost:8080/api/groups/underGroup?group_id=${response.data}`).then(rep => {
+         axios.get("/api/groups/findIDOfDiscoodle").then(response => {
+            axios.get(`/api/groups/underGroup?group_id=${response.data}`).then(rep => {
                this.establishments = rep.data;
             })
          })
@@ -375,8 +375,8 @@ export default {
             this.groups = [];
          if (reset_est) {
             this.establishments = [];
-            axios.get("http://localhost:8080/api/groups/findIDOfDiscoodle").then(response => {
-               axios.get(`http://localhost:8080/api/groups/underGroup?group_id=${response.data}`).then(rep => {
+            axios.get("/api/groups/findIDOfDiscoodle").then(response => {
+               axios.get(`/api/groups/underGroup?group_id=${response.data}`).then(rep => {
                   this.establishments = rep.data;
                })
             })
@@ -409,7 +409,7 @@ export default {
                elt.childs.forEach(group => {
                   if (group.type === "SUBJECTS") {
                      axios.post(
-                           `http://localhost:8080/api/groups/addNewMemberInGroup?group_id=${group.groups_id}&user_id=${this.getUser.id}&token=${group.token}`
+                           `/api/groups/addNewMemberInGroup?group_id=${group.groups_id}&user_id=${this.getUser.id}&token=${group.token}`
                      ).catch(() => {
                         noErr = false;
                      })
@@ -418,7 +418,7 @@ export default {
             }
             if (!update) {
                axios.post(
-                     `http://localhost:8080/api/groups/addNewMemberInGroup?group_id=${elt.group.groups_id}&user_id=${this.getUser.id}&token=${elt.group.token}`
+                     `/api/groups/addNewMemberInGroup?group_id=${elt.group.groups_id}&user_id=${this.getUser.id}&token=${elt.group.token}`
                ).catch(() => {
                   noErr = false;
                })
@@ -435,7 +435,7 @@ export default {
       },
 
       requestTeacher() {
-         axios.post(`http://localhost:8080/api/TeacherRequest/addTeacherRequest?user_id=${this.getUser.id}`).then(response => {
+         axios.post(`/api/TeacherRequest/addTeacherRequest?user_id=${this.getUser.id}`).then(response => {
             if (response.data !== null) {
                this.requests.teacher.request = response.data;
                this.requests.teacher.requestState = true;
@@ -447,8 +447,8 @@ export default {
       },
 
       async askEstablishment() {
-         await axios.get("http://localhost:8080/api/groups/findIDOfDiscoodle").then(response => {
-            axios.post(`http://localhost:8080/api/establishmentRequest/addEstablishmentRequest`, {
+         await axios.get("/api/groups/findIDOfDiscoodle").then(response => {
+            axios.post(`/api/establishmentRequest/addEstablishmentRequest`, {
                parent_id: response.data,
                user_id: this.getUser.id,
                depth: 2,
@@ -530,12 +530,12 @@ export default {
    mounted() {
       this.isAuthentificated = (JSON.stringify(this.getUser) !== JSON.stringify({}));
       if (this.isAuthentificated) {
-         axios.get(`http://localhost:8080/api/users/findByUserName?username=${this.getUser.username}`).then(response => {
+         axios.get(`/api/users/findByUserName?username=${this.getUser.username}`).then(response => {
             this.setUser(response.data);
          });
          this.updateEstablishment();
 
-         axios.get(`http://localhost:8080/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
             const groups = response.data.sort((a, b) => (
                   a.depth - b.depth
             )).filter(elt => (
@@ -580,7 +580,7 @@ export default {
             }, 500)
          });
 
-         axios.get(`http://localhost:8080/api/TeacherRequest/getTeacherRequestOfUser?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`/api/TeacherRequest/getTeacherRequestOfUser?user_id=${this.getUser.id}`).then(response => {
             if (response.data?.status === 'ACCEPTEE')
                this.getUser.role = "TEACHER";
             if (response.data) {
@@ -592,7 +592,7 @@ export default {
             }
          });
 
-         axios.get(`http://localhost:8080/api/establishmentRequest/getEstablishmentRequestOfUser?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`/api/establishmentRequest/getEstablishmentRequestOfUser?user_id=${this.getUser.id}`).then(response => {
             this.requests.establishments.list = response.data.filter(e => {
                return e.status === 'ACCEPTEE' || e.status === 'COURS'
             });

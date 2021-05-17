@@ -435,7 +435,7 @@ export default {
 
 
       connect() {
-         let ws = new SockJS("http://localhost:8080/ws");
+         let ws = new SockJS("/ws");
          stompClient = Stomp.over(ws);
          // Comment the next line if you want to show websocket's logs
          stompClient.debug = null
@@ -467,7 +467,7 @@ export default {
                   user_id: obj.user_id
                });
 
-               axios.get(`http://localhost:8080/api/users/infos?user_id=${obj.user_id}`).then(response => {
+               axios.get(`/api/users/infos?user_id=${obj.user_id}`).then(response => {
                   if (this.userWatching.indexOf(response.data) !== -1)
                      this.userWatching.push(response.data);
                });
