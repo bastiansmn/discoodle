@@ -7,7 +7,7 @@
 <h3 align="center">Discoodle - La meilleure plateforme d'éducation et de communication</h3>
 
   <p align="center">
-    <a href="https://discoodle.fr/">Voir la démonstration</a>
+    <a href="http://82.123.93.44:8080/">Voir la démonstration</a>
     ·
     <a href="https://gaufre.informatique.univ-paris-diderot.fr/somon/discoodle/issues">Signaler des bugs</a>
     ·
