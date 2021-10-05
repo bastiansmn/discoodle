@@ -9,6 +9,7 @@ import com.discoodle.api.service.GroupsService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -88,7 +89,9 @@ public class GroupsController {
 
     @PostMapping("/addRoleForUser")
     public Optional<Roles> addRoleForUser(@RequestParam(value = "user_id") Long user_id, @RequestParam("role_id") Long role_id) {
-        return this.addRoleForUsers(List.of(user_id), role_id);
+        LinkedList<Long> ids = new LinkedList<>();
+        ids.add(user_id);
+        return this.addRoleForUsers(ids, role_id);
     }
 
     @DeleteMapping("/removeRoleForUser")

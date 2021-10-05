@@ -25,10 +25,6 @@
     <properties>
         <main.basedir>${project.basedir}</main.basedir>
         <skipTests>true</skipTests>
-        <db.port>3306</db.port>
-        <db.username>root</db.username>
-        <db.password>root</db.password>
-        <db.host>localhost</db.host>
         <mainClass>com.discoodle.api.ApiApplication</mainClass>
     </properties>
 

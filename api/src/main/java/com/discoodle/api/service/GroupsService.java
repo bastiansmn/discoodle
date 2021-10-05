@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -75,7 +76,9 @@ public class GroupsService {
         // Add the creator in this new group.
         groupsRepository.addNewMemberInGroup(request.getUser_id(), finalGroup.getGroups_id());
         // Create a new server for this new group.
-        Optional<Server> server = serverService.createNewServ("Serveur de " + finalGroup.getName(), List.of(request.getUser_id()));
+        LinkedList<Long> ids = new LinkedList<>();
+        ids.add(request.getUser_id());
+        Optional<Server> server = serverService.createNewServ("Serveur de " + finalGroup.getName(), ids);
         // Create link with this server and this new group.
         groupsRepository.addNewServInGroup(finalGroup.getGroups_id(), server.get().getServer_id());
         try {
@@ -152,7 +155,7 @@ public class GroupsService {
         if (tempGroup.isPresent())
             // All the groups below him have returned.
             return tempGroup.get().getUnderGroups();
-        return List.of();
+        return new LinkedList<>();
     }
 
     public Optional<Roles> addRoleForGroup(Long group_id, String role_name, String rights) {

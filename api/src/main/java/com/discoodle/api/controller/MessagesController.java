@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class MessagesController {
         if (room_uuid.matches("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$") && roomRepository.existsById(room_uuid))
             return messagesService.getMessagesOfRoom(room_uuid);
         // Else, return an empty list.
-        return List.of();
+        return new LinkedList<>();
     }
 
     @PostMapping("api/messages/sendMessage")

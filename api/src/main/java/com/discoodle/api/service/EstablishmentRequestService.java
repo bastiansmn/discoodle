@@ -10,6 +10,7 @@ import com.discoodle.api.request.GroupsRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class EstablishmentRequestService {
         Optional<User> user=userRepository.findById(groupsRequest.getUser_id());
         // Check if the user is present and has the Teacher role.
         // Check if the name given to the group does not already exist as well as some checks.
-        if(user.isPresent() && user.get().getRole().equals(User.Role.TEACHER) && groupsRepository.findAllGroupsByNameAndDepth(groupsRequest.getName(), 1).isEmpty() && (groupsRequest.getType().equals(Groups.TypeOfGroup.ESTABLISHMENT) || groupsRequest.getType().equals(Groups.TypeOfGroup.FACULTY))){
+        if(user.isPresent() && user.get().getRole().equals(User.Role.TEACHER) && !groupsRepository.findAllGroupsByNameAndDepth(groupsRequest.getName(), 1).isPresent() && (groupsRequest.getType().equals(Groups.TypeOfGroup.ESTABLISHMENT) || groupsRequest.getType().equals(Groups.TypeOfGroup.FACULTY))){
             // Create a new object EstablishmentRequest.
             EstablishmentRequest er = new EstablishmentRequest(
                     groupsRequest.getUser_id(),
@@ -93,7 +94,7 @@ public class EstablishmentRequestService {
             // Return the list of Establishment Request of this user.
             return establishmentRequestRepository.getEstablishmentRequestByUser(user_id);
         }
-        return List.of();
+        return new LinkedList<>();
     }
 
     public List<EstablishmentRequest> getEstablishmentRequestBeingProcessed() {

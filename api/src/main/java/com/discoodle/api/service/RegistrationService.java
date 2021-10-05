@@ -24,7 +24,7 @@ public class RegistrationService {
 
    public String register(RegistrationRequest request) {
       // Check if username or/and mail entered exist already.
-      if (userService.getUserByUserName(request.getUsername()).isEmpty() || userService.getUserByMail(request.getMail()).isEmpty()) {
+      if (!userService.getUserByUserName(request.getUsername()).isPresent() || !userService.getUserByMail(request.getMail()).isPresent()) {
          // Regex for password with at least 8 characters constitued from at least 1 number, 1 letter to lowercase, 1 letter to uppercase, 1 special character.
          if (request.getPassword().matches("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}")) {
             // Regex for mail with at (@).
@@ -50,15 +50,13 @@ public class RegistrationService {
          }
       }
 
-      return """
-            Votre mot de passe doit contenir :
-            - au moins 8 caractères
-            - un chiffre
-            - une minuscule
-            - une majuscule
-            - un caractère spécial
-            - pas d'espace, retour à la ligne, etc
-            """;
+      return "Votre mot de passe doit contenir : "+
+              "- au moins 8 caractères" +
+              "- un chiffre" +
+              "- une miniscule" +
+              "- une majuscule" +
+              "- un caractère spécial" +
+              "- pas d'espace, de retour à la ligne etc";
    }
 
    public String login(RegistrationRequest request) {

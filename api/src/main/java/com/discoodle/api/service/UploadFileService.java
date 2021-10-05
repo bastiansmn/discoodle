@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -50,7 +51,7 @@ public class UploadFileService {
             }
             // If the file does not exist we create it in the tree structure and we transfer the MultipartFile inside.
             add.createNewFile();
-            Files.write(Path.of(path), file.getBytes());
+            Files.write(Paths.get(path), file.getBytes());
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -59,7 +60,7 @@ public class UploadFileService {
 
     // Refer to the uploadFile function.
     public String uploadImageInChat(MultipartFile file, String room_id) {
-        if (roomRepository.findById(room_id).isEmpty())
+        if (!roomRepository.findById(room_id).isPresent())
             return "La room n'existe pas.";
         String extension =  FilenameUtils.getExtension(file.getOriginalFilename());
         // Check if the extension is an accepted extension (jpg,png)
@@ -73,7 +74,7 @@ public class UploadFileService {
             if (!add.exists()) {
                 add.createNewFile();
             }
-            Files.write(Path.of(path), file.getBytes());
+            Files.write(Paths.get(path), file.getBytes());
         } catch (Exception e) {
             return "Erreur lors du téléchargement de l'image !";
         }
@@ -85,7 +86,7 @@ public class UploadFileService {
     public String uploadSubject(MultipartFile file, Long group_id) {
         Optional<Groups> group=groupsRepository.findGroupsByID(group_id);
         // Check if this groups is a Subjects.
-        if(group.isEmpty() || !group.get().getType().equals(Groups.TypeOfGroup.SUBJECTS))
+        if(!group.isPresent() || !group.get().getType().equals(Groups.TypeOfGroup.SUBJECTS))
             return "le group n'existe pas ou n'est pas une matière!";
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
         // Check if the extension is an accepted extension (jpg,png)
@@ -98,7 +99,7 @@ public class UploadFileService {
             if (!add.exists()) {
                 add.createNewFile();
             }
-            Files.write(Path.of(path), file.getBytes());
+            Files.write(Paths.get(path), file.getBytes());
         } catch (Exception e) {
             return "Erreur lors du téléchargement du fichier !";
         }
@@ -124,7 +125,7 @@ public class UploadFileService {
             }
             // Change the avatar of this user.
             userService.changeLinkToAvatar(user_id,String.format("http://localhost:8080/common/avatar/%d.%s", user_id, extension));
-            Files.write(Path.of(path), file.getBytes());
+            Files.write(Paths.get(path), file.getBytes());
         } catch (Exception e) {
             return "Erreur lors du téléchargement du fichier !";
         }
@@ -139,7 +140,7 @@ public class UploadFileService {
             String path = String.format("%sstatic/common/avatar/", ApiApplication.RESSOURCES) + user.get().getLink_to_avatar().substring(36);
             try {
                 // Delete the image file in the path, if this file exists.
-                Files.deleteIfExists(Path.of(path));
+                Files.deleteIfExists(Paths.get(path));
             } catch (Exception e) {
                 return false;
             }
@@ -169,7 +170,7 @@ public class UploadFileService {
             }
             // Change the picture of room avatar.
             roomService.changeLinkPicture(room_id,path);
-            Files.write(Path.of(path), file.getBytes());
+            Files.write(Paths.get(path), file.getBytes());
         } catch (Exception e) {
             return "Erreur lors du téléchargement du fichier !";
         }
@@ -184,7 +185,7 @@ public class UploadFileService {
             String path = String.format("%sstatic/common/roomAvatar/", ApiApplication.RESSOURCES) + room.get().getLink_picture().substring(40);
             try {
                 // Delete the image file in the path, if this file exists.
-                Files.deleteIfExists(Path.of(path));
+                Files.deleteIfExists(Paths.get(path));
             } catch (Exception e) {
                 return false;
             }

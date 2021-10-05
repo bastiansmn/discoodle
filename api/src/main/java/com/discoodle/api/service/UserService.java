@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -154,7 +155,7 @@ public class UserService implements UserDetailsService {
     public List<User> getFriendList(Long user_id) {
         // Check user doesn't exist and return an empty list.
         if (!userRepository.existsById(user_id))
-            return List.of();
+            return new LinkedList<>();
         // In case user exists, we take all friendships where the ID of the user refered in parameters is linked.
         List<Long> list = userRepository.getFriendListForReceiver(user_id);
         list.addAll(userRepository.getFriendListForSender(user_id));
