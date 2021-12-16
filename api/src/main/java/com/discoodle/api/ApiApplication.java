@@ -29,7 +29,7 @@ public class ApiApplication {
       CorsConfiguration config = new CorsConfiguration();
       config.setAllowCredentials(true);
       // *** URL below needs to match the Vue client URL and port ***
-      config.setAllowedOrigins(List.of("http://82.123.93.44:8080", "http://localhost:8081"));
+      config.setAllowedOrigins(List.of("http://localhost:8081"));
       config.setAllowedMethods(Collections.singletonList("*"));
       config.setAllowedHeaders(Collections.singletonList("*"));
       source.registerCorsConfiguration("/**", config);

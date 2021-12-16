@@ -12,7 +12,7 @@ import java.util.List;
 public interface MessagesRepository extends JpaRepository<Message, Long> {
 
    @Query(value = "SELECT messages FROM Message messages WHERE messages.conv_uuid = :conv_uuid")
-   List<Message> getMessagesOfRoom(String conv_uuid);
+   List<Message> getMessagesOfRoom(Integer conv_uuid);
 
    @Transactional
    @Modifying

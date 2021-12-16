@@ -39,16 +39,16 @@ public class RoomService {
     }
 
     // Return the list of users present in the room.
-    public List<User> getUserOfRoom(String room_id) {
+    public List<User> getUserOfRoom(Integer room_id) {
         return roomRepository.getUserOfRoom(room_id);
     }
 
     // Return the administrator of the room.
-    public Optional<User> getAdminOfRoom(String room_id) {
+    public Optional<User> getAdminOfRoom(Integer room_id) {
         return userRepository.findById(roomRepository.getAdminOfRoom(room_id));
     }
 
-    public Optional<User> removeMember(String room_id, Long user_id) {
+    public Optional<User> removeMember(Integer room_id, Long user_id) {
         Optional<User> test = userRepository.findById(user_id);
 
         // Check if the room exits and if the user is present.
@@ -87,7 +87,7 @@ public class RoomService {
         return messagesRepository.getMessagesOfUser(user_id);
     }
 
-    public Optional<Room> addNewMember(String room_id, Long user_id) {
+    public Optional<Room> addNewMember(Integer room_id, Long user_id) {
         Optional<User> test = userRepository.findById(user_id);
         Optional<Room> room=roomRepository.findById(room_id);
         // Checks whether the objects were successfully retrieved and whether the user is not already present on the room.
@@ -98,7 +98,7 @@ public class RoomService {
         return Optional.empty();
     }
 
-    public Optional<Room> changeLinkPicture(String room_id, String link_to_avatar) {
+    public Optional<Room> changeLinkPicture(Integer room_id, String link_to_avatar) {
         Optional<Room> test = roomRepository.findById(room_id);
         // Check if the room exists and if its photo has been changed.
         if (test.isPresent() && roomRepository.changeLinkPicture(room_id, link_to_avatar) == 1) {
@@ -108,7 +108,7 @@ public class RoomService {
         return Optional.empty();
     }
 
-    public Optional<Room> changeAdmin(String room_id, Long room_admin) {
+    public Optional<Room> changeAdmin(Integer room_id, Long room_admin) {
         Optional<Room> test = roomRepository.findById(room_id);
         // Check if the room exists and if the admin has been changed.
         if (test.isPresent() && roomRepository.changeAdmin(room_id, room_admin) == 1) {
@@ -118,7 +118,7 @@ public class RoomService {
         return Optional.empty();
     }
 
-    public Optional<Room> renameRoom(String room_id, String new_name) {
+    public Optional<Room> renameRoom(Integer room_id, String new_name) {
         Optional<Room> test = roomRepository.findById(room_id);
         // Check if room exists.
         if(test.isPresent()) {

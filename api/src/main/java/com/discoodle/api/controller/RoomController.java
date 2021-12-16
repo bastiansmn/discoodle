@@ -24,48 +24,48 @@ public class RoomController {
     }
 
     @GetMapping("/findRoomByID")
-    public Optional<Room> getRoomByID(@RequestParam("room_uuid") String room_uuid) {
+    public Optional<Room> getRoomByID(@RequestParam("room_uuid") Integer room_uuid) {
         return roomRepository.findById(room_uuid);
     }
 
     @GetMapping("/findUserOfRoom")
-    public List<User> getUserOfRoom(@RequestParam(value = "room_id") String room_id) {
+    public List<User> getUserOfRoom(@RequestParam(value = "room_id") Integer room_id) {
         return roomService.getUserOfRoom(room_id);
     }
 
     @GetMapping("/findAdminOfRoom")
-    public User getAdminOfRoom(@RequestParam(value = "room_id") String room_id) {
+    public User getAdminOfRoom(@RequestParam(value = "room_id") Integer room_id) {
         Optional<User> temp = roomService.getAdminOfRoom(room_id);
         return temp.orElse(null);
     }
 
     @PostMapping("/addNewMember")
-    public void addNewMember(@RequestParam(value = "room_id") String room_id, @RequestParam(value = "user_id") Long user_id) {
+    public void addNewMember(@RequestParam(value = "room_id") Integer room_id, @RequestParam(value = "user_id") Long user_id) {
         roomService.addNewMember(room_id, user_id);
     }
 
     @DeleteMapping("/removeMember")
-    public Optional<User> removeMember(@RequestParam(value = "room_id") String room_id, @RequestParam(value = "user_id") Long user_id) {
+    public Optional<User> removeMember(@RequestParam(value = "room_id") Integer room_id, @RequestParam(value = "user_id") Long user_id) {
         return roomService.removeMember(room_id, user_id);
     }
 
     @PostMapping("/changeLinkPicture")
-    public Optional<Room> changeLinkPicture(@RequestParam(value = "room_id") String room_id,@RequestParam(value="link_picture") String link_picture) {
+    public Optional<Room> changeLinkPicture(@RequestParam(value = "room_id") Integer room_id,@RequestParam(value="link_picture") String link_picture) {
         return roomService.changeLinkPicture(room_id,link_picture);
     }
 
     @PutMapping("/changeAdmin")
-    public Optional<Room> changeAdmin(@RequestParam(value = "room_id") String room_id, @RequestParam(value = "admin") Long room_admin) {
+    public Optional<Room> changeAdmin(@RequestParam(value = "room_id") Integer room_id, @RequestParam(value = "admin") Long room_admin) {
         return roomService.changeAdmin(room_id, room_admin);
     }
 
     @PutMapping("/renameRoom")
-    public void renameRoom(@RequestParam(value = "room_id") String room_id, @RequestParam(value = "new_name") String new_name) {
+    public void renameRoom(@RequestParam(value = "room_id") Integer room_id, @RequestParam(value = "new_name") String new_name) {
         roomService.renameRoom(room_id, new_name);
     }
 
     @DeleteMapping("/removeRoom")
-    public void deleteRoom(@RequestParam(value = "room_id") String room_id){
+    public void deleteRoom(@RequestParam(value = "room_id") Integer room_id){
         if(roomRepository.existsById(room_id))
             roomRepository.deleteById(room_id);
     }

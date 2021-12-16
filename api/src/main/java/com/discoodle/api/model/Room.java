@@ -10,10 +10,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@ToString
 @Table(name = "rooms")
 public class Room {
 
@@ -24,18 +22,17 @@ public class Room {
     }
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "room_id", unique = true, nullable = false)
-    private String room_id;
+    @GeneratedValue
+    @Column(name = "room_id", unique = true, nullable = false, length = 100)
+    private Integer room_id;
 
-    @Column(name = "room_name")
+    @Column(name = "room_name", length = 20)
     private String room_name;
 
     @Column(name = "room_admin")
     private Long room_admin;
 
-    @Column(name = "link_picture")
+    @Column(name = "link_picture", length = 100)
     private String link_picture;
 
     @Column(name = "room_link")

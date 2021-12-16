@@ -20,7 +20,6 @@ public class RegistrationService {
 
    private final UserService userService;
    private final ConfirmationTokenService confirmationTokenService;
-   private final MailSender mailSender;
 
    public String register(RegistrationRequest request) {
       // Check if username or/and mail entered exist already.
@@ -40,10 +39,6 @@ public class RegistrationService {
                            User.Role.STUDENT
                      )
                );
-               // Send mail verifcation.
-                    String link = "http://localhost:8080/api/registration/confirm?token=" + token;
-                    mailSender.send(request.getMail(),
-                            buildMail(request.getName(), link));
                return token;
             }
             return "Votre mail n'est pas valide.\n";
@@ -94,7 +89,7 @@ public class RegistrationService {
       userService.enableUser(
             confirmationToken.getUser().getMail());
       // Redirect user on login page.
-      response.sendRedirect("http://localhost:8081/compte");
+      response.sendRedirect("/compte");
       return "Vous pouvez désormais vous connecter à notre plateforme discoodle ! :)";
    }
 

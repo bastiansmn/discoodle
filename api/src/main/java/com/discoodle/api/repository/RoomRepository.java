@@ -13,36 +13,36 @@ import java.util.List;
 
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, String> {
+public interface RoomRepository extends JpaRepository<Room, Integer> {
 
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO link_rooms_users (user_id, room_id) VALUES (:user_id,:room_id)", nativeQuery = true)
-    void addNewMember(@Param("room_id") String room_id, @Param("user_id") Long user_id);
+    void addNewMember(@Param("room_id") Integer room_id, @Param("user_id") Long user_id);
 
     @Transactional
     @Modifying
     @Query(value = "DELETE r FROM link_rooms_users as r where r.room_id = :room_id AND r.user_id = :user_id", nativeQuery = true)
-    void removeMember(@Param("room_id") String room_id, @Param("user_id") Long user_id);
+    void removeMember(@Param("room_id") Integer room_id, @Param("user_id") Long user_id);
 
     @Transactional
     @Modifying
     @Query("UPDATE Room room SET room.link_picture = :link_picture WHERE room.room_id = :room_id")
-    int changeLinkPicture(@Param("room_id") String room_id, @Param("link_picture") String link_picture);
+    int changeLinkPicture(@Param("room_id") Integer room_id, @Param("link_picture") String link_picture);
 
     @Transactional
     @Modifying
     @Query("UPDATE Room room SET room.room_admin = :room_admin WHERE room.room_id = :room_id")
-    int changeAdmin(@Param("room_id") String room_id, @Param("room_admin") Long room_admin);
+    int changeAdmin(@Param("room_id") Integer room_id, @Param("room_admin") Long room_admin);
 
     @Transactional
     @Modifying
     @Query("UPDATE Room room SET room.room_name = :new_name WHERE room.room_id = :room_id")
-    void renameRoom(@Param("room_id") String room_id, @Param("new_name") String new_name);
+    void renameRoom(@Param("room_id") Integer room_id, @Param("new_name") String new_name);
 
     @Query("SELECT room.users FROM Room room WHERE room.room_id = :room_id")
-    List<User> getUserOfRoom(String room_id);
+    List<User> getUserOfRoom(Integer room_id);
 
     @Query("SELECT room.room_admin FROM Room room WHERE room.room_id = :room_id")
-    Long getAdminOfRoom(String room_id);
+    Long getAdminOfRoom(Integer room_id);
 }

@@ -9,10 +9,8 @@ import java.util.List;
 
 @Getter
 @Setter
-@EqualsAndHashCode
 @NoArgsConstructor
 @Entity
-@ToString
 @Table(name = "server")
 public class Server {
 

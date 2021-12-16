@@ -24,7 +24,7 @@ public class UploadFileController {
     }
 
     @PostMapping(value = "/uploadImageInChat")
-    public String uploadImageInChat(@RequestBody MultipartFile file, @RequestParam("room_id") String room_id) {
+    public String uploadImageInChat(@RequestBody MultipartFile file, @RequestParam("room_id") Integer room_id) {
         return uploadFileService.uploadImageInChat(file, room_id);
     }
 
@@ -38,11 +38,11 @@ public class UploadFileController {
     }
 
     @PostMapping(value = "/uploadRoomAvatar")
-    public String uploadRoomAvatar(@RequestBody MultipartFile file, @RequestParam("room_id") String room_id) {
+    public String uploadRoomAvatar(@RequestBody MultipartFile file, @RequestParam("room_id") Integer room_id) {
         return uploadFileService.uploadRoomAvatar(file, room_id);
     }
     @DeleteMapping("/deleteRoomImage")
-    public Boolean deleteRoomAvatar(@RequestParam("room_id") String room_id){
+    public Boolean deleteRoomAvatar(@RequestParam("room_id") Integer room_id){
         return uploadFileService.deleteRoomAvatar(room_id);
     }
 

@@ -55,7 +55,7 @@ public class User {
     @Column(nullable = false, columnDefinition = "TINYINT(1)")
     private boolean locked;
 
-    @Column(nullable = false, columnDefinition = "TINYINT(1)")
+    @Column(nullable = false, columnDefinition = "TINYINT(1) default true")
     private boolean enabled;
 
     @JsonIgnore

@@ -58,7 +58,7 @@ public class UploadFileService {
     }
 
     // Refer to the uploadFile function.
-    public String uploadImageInChat(MultipartFile file, String room_id) {
+    public String uploadImageInChat(MultipartFile file, Integer room_id) {
         if (roomRepository.findById(room_id).isEmpty())
             return "La room n'existe pas.";
         String extension =  FilenameUtils.getExtension(file.getOriginalFilename());
@@ -78,7 +78,7 @@ public class UploadFileService {
             return "Erreur lors du téléchargement de l'image !";
         }
         // Return the upload image with the mapping url of this file.
-        return "http://localhost:8080/common/images/rooms/" + uuid + "." + extension;
+        return "/common/images/rooms/" + uuid + "." + extension;
     }
 
     // Refer to the uploadFile function.
@@ -123,13 +123,13 @@ public class UploadFileService {
                 add.createNewFile();
             }
             // Change the avatar of this user.
-            userService.changeLinkToAvatar(user_id,String.format("http://localhost:8080/common/avatar/%d.%s", user_id, extension));
+            userService.changeLinkToAvatar(user_id,String.format("/common/avatar/%d.%s", user_id, extension));
             Files.write(Path.of(path), file.getBytes());
         } catch (Exception e) {
             return "Erreur lors du téléchargement du fichier !";
         }
         // Return the mapping url of this image.
-        return String.format("http://localhost:8080/common/avatar/%d.%s", user_id, extension);
+        return String.format("/common/avatar/%d.%s", user_id, extension);
     }
 
     public Boolean deleteAvatar(Long user_id){
@@ -151,7 +151,7 @@ public class UploadFileService {
     }
 
     // Refer to the uploadFile function.
-    public String uploadRoomAvatar(MultipartFile file, String room_id) {
+    public String uploadRoomAvatar(MultipartFile file, Integer room_id) {
         // Check if room exists.
         if(!roomRepository.existsById(room_id))
             return "la room n'existe pas !";
@@ -177,7 +177,7 @@ public class UploadFileService {
         return String.format("%sstatic/common/roomAvatar/%d.%s", ApiApplication.RESSOURCES,room_id,extension);
     }
 
-    public Boolean deleteRoomAvatar(String room_id){
+    public Boolean deleteRoomAvatar(Integer room_id){
         Optional<Room> room=roomRepository.findById(room_id);
         // Check if room exists.
         if(room.isPresent()) {

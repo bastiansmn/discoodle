@@ -16,7 +16,7 @@ public interface ServerRepository extends JpaRepository<Server, Long> {
     @Modifying
     @Query(value = "insert into link_server_room (server_id, room_id) VALUES (:server_id,:room_id)", nativeQuery = true)
     @Transactional
-    void addNewRoomInServ(@Param("server_id") Long server_id, @Param("room_id") String room_id);
+    void addNewRoomInServ(@Param("server_id") Long server_id, @Param("room_id") Integer room_id);
 
     @Modifying
     @Query(value = "insert into link_server_users (server_id, user_id) VALUES (:server_id,:user_id)", nativeQuery = true)
