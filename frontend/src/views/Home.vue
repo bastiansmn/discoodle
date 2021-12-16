@@ -57,7 +57,7 @@ export default {
       this.rssFeed.forEach(elt => {
          axios.get(elt).then(response => {
             const content = new DOMParser().parseFromString(response.data, "text/xml");
-            const items = content.getElementsByTagName("item");
+            const items = Array.from(content.getElementsByTagName("item"));
             items.forEach(elt => {
                const childs = elt.children;
                if (childs[0]?.tagName === "title" && childs[1]?.tagName === "link" && childs[2]?.tagName === "description" && childs[4]?.tagName === "pubDate") {

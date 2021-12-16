@@ -73,6 +73,11 @@ export default {
    overflow-y: auto;
 }
 
+.Post::-webkit-scrollbar-thumb {
+   background: #d0d0d0;
+   border-radius: 15px;
+}
+
 .Post > * {
    margin-bottom: 10px;
 }

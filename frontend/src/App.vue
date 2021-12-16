@@ -31,6 +31,38 @@
             <router-view />
          </div>
       </div>
+
+      <w-dialog
+         v-model="showPopUp"
+         title="Annonce"
+         :width="500"
+      >
+         <p>
+            Discoodle est un projet étudiant visant à aider les établissement pour les enseignements à distance. Il permet d'envoyer des messages, de partager son écran dans un cours intéractif, de poster des notes en lignes, avoir un serveur de discussion pour un cours ou entre enseignants...
+         </p>
+         <p>
+            Ce projet est un projet vitrine, il n'est pas dedié à un usage intensif.
+            Il possède surement des bugs car il n'est plus maintenu à jour.
+         </p>
+         <br>
+         <span><strong>Bugs fréquents :</strong></span>
+         <ul>
+            <li>- Le host de la base de donnée peut parfois empêcher les requêtes distantes</li>
+            <li>- Le serveur ne permet pas le rechargement de la page (le routing n'est pas géré côté serveur)</li>
+            <li>- Certaines dépendences (notamment JS) peuvent ne pas fonctionner à cause de leur version (notamment Firebase)</li>
+         </ul>
+         <p>
+            Si vous rencontrez des problèmes non mentionnés, n'hésitez pas à ouvrir une issue sur <a href="https://github.com/bastiansmn/discoodle">le repository</a>
+         </p>
+         <br>
+         <span><strong>Nous contacter :</strong></span>
+         <ul>
+            <li><a target="_blank" href="mailto:bastian.somon@gmail.com">bastian.somon@gmail.com</a></li>
+            <li><a target="_blank" href="mailto:elymo.mc@gmail.com">elymo.mc@gmail.com</a></li>
+            <li><a target="_blank" href="mailto:dylan_alexandre@outlook.fr">dylan_alexandre@outlook.fr</a></li>
+            <li><a target="_blank" href="mailto:jylanpayet@gmail.com">jylanpayet@gmail.com</a></li>
+         </ul>
+      </w-dialog>
    </w-app>
 </template>
 
@@ -49,6 +81,11 @@ export default {
    },
    computed: {
       ...mapGetters(['getColors'])
+   },
+   data() {
+      return {
+         showPopUp: true
+      }
    },
    mounted() {
       if (vueCookie.get("username") !== null && vueCookie.get("username") !== "") {
@@ -256,4 +293,7 @@ label[for="switch"]:after {
    height: 100%;
 }
 
+a {
+   color: #5cb0e8;
+}
 </style>

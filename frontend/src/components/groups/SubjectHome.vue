@@ -157,31 +157,31 @@ export default {
    justify-content: flex-start;
 }
 
-.content >>> h1,
-.content >>> h2,
-.content >>> h3,
-.content >>> h4,
-.content >>> h5,
-.content >>> h6 {
+.content:deep( h1 ),
+.content:deep( h2 ),
+.content:deep( h3 ),
+.content:deep( h4 ),
+.content:deep( h5 ),
+.content:deep( h6 ) {
    margin-top: 20px;
    text-decoration: underline;
 }
 
-.content >>> * {
+.content:deep( * ) {
    margin-top: 10px;
 }
 
-.content >>> pre {
+.content:deep( pre ) {
    background-color: #4f4b5a;
    border-radius: 5px;
    padding: 10px;
 }
 
-.content >>> pre > code {
+.content:deep( pre > code ) {
    font-family: 'Inconsolata', monospace;
 }
 
-.content >>> blockquote {
+.content:deep( blockquote ) {
    padding: 10px 16px 10px 16px;
    border-radius: 2px;
    border-left: #E85C5C solid 2px;
@@ -191,17 +191,17 @@ export default {
 
 }
 
-.content >>> blockquote:before {
+.content:deep( blockquote:before ) {
    content: "\"";
    margin-right: 4px;
 }
 
-.content >>> blockquote:after {
+.content:deep( blockquote:after ) {
    content: "\"";
    margin-left: 4px;
 }
 
-.content >>> blockquote > p {
+.content:deep( blockquote > p ) {
    display: flex;
    align-items: center;
    justify-content: center;

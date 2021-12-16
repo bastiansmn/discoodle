@@ -1,11 +1,12 @@
 discoodle.iml
-frontend/frontend.iml
-frontend/node
-frontend/node_modules/.cache
+frontend.iml
+node
+node_modules/
 .mvn
 .idea
-api/api.iml
-frontend/package-lock.json
+api.iml
+package-lock.json
+make.log
 
 .DS_Store
 node_modules

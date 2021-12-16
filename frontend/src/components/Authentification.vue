@@ -68,6 +68,7 @@ export default {
    },
    methods: {
       userRegistration() {
+         // TODO : Changer tous les appels vers l'api (localhost:8080 si dev, rien si prod
          axios.post(`/api/registration`, {
             mail: document.querySelector("input[name=mailReg]").value,
             password: document.querySelector("input[name=passwordReg]").value,
