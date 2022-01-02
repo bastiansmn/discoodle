@@ -135,7 +135,7 @@ public class UploadFileService {
     public Boolean deleteAvatar(Long user_id){
         Optional<User> user=userRepository.findById(user_id);
         // Check if user exists.
-        if(user.isPresent()) {
+        if(user.isPresent() && user.get().getLink_to_avatar() != null) {
             String path = String.format("%sstatic/common/avatar/", ApiApplication.RESSOURCES) + user.get().getLink_to_avatar().substring(36);
             try {
                 // Delete the image file in the path, if this file exists.

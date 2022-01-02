@@ -2,7 +2,7 @@ build: clean log
 	@cd frontend && npm run build &> ../make.log && mv dist/* ../api/src/main/resources/static/
 	@cd api && mvn clean install &> ../make.log
 	@cp api/.env api/target/
-	@cd api/target && export $(cat .env | xargs) && java -jar api-2.6.1.jar
+	@cd api/target && export $(cat .env | xargs)
 
 deploy: log
 	@./deploy.sh
