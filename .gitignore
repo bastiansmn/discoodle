@@ -12,6 +12,7 @@ make.log
 node_modules
 /dist
 .vscode
+**/.env
 
 api/src/main/resources/static/common/json/*.json
 
@@ -32,3 +33,9 @@ pnpm-debug.log*
 *.sln
 *.sw?
 /api/target/
+api/src/main/resources/static/assets/
+api/src/main/resources/static/css/
+api/src/main/resources/static/img/
+api/src/main/resources/static/index.html
+api/src/main/resources/static/js/
+api/src/main/resources/static/root.css
