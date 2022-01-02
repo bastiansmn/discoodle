@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 public class MessageRequest {
 
-   private String conv_uuid;
+   private Integer conv_uuid;
    private String content;
    private String sender;
    private Long message_date;

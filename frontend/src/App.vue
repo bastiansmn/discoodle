@@ -11,16 +11,16 @@
                      <span class="headerNavbar">MENU</span>
                      <div class="links">
                         <router-link to="/accueil">
-                           <div class="navbar-icon"><img src=assets/home.png alt="Home"></div>
+                           <div class="navbar-icon"><img src=/assets/home.png alt="Home"></div>
                            <span :style="{ color: getColors.color5 }">ACCUEIL</span></router-link>
                         <router-link to="/groupes" @click="setGroup({})">
-                           <div class="navbar-icon"><img src="assets/courses.png" alt="Courses"></div>
+                           <div class="navbar-icon"><img src="/assets/courses.png" alt="Courses"></div>
                            <span :style="{ color: getColors.color5 }">COURS</span></router-link>
                         <router-link to="/messages">
-                           <div class="navbar-icon"><img src="assets/messages.png" alt="Messages"></div>
+                           <div class="navbar-icon"><img src="/assets/messages.png" alt="Messages"></div>
                            <span :style="{ color: getColors.color5 }">MESSAGES</span></router-link>
                         <router-link to="/compte">
-                           <div class="navbar-icon"><img src="assets/account.png" alt="Account"></div>
+                           <div class="navbar-icon"><img src="/assets/account.png" alt="Account"></div>
                            <span :style="{ color: getColors.color5 }">COMPTE</span></router-link>
                      </div>
                   </div>
@@ -47,7 +47,7 @@
          <br>
          <span><strong>Bugs fréquents :</strong></span>
          <ul>
-            <li>- Le host de la base de donnée peut parfois empêcher les requêtes distantes</li>
+            <li>- Le host de la base de donnée peut parfois empêcher les requêtes distantes (peut-être si vous visitez le site depuis un réseau public)</li>
             <li>- Le serveur ne permet pas le rechargement de la page (le routing n'est pas géré côté serveur)</li>
             <li>- Certaines dépendences (notamment JS) peuvent ne pas fonctionner à cause de leur version (notamment Firebase)</li>
          </ul>
@@ -295,5 +295,9 @@ label[for="switch"]:after {
 
 a {
    color: #5cb0e8;
+}
+
+ul {
+   list-style: none;
 }
 </style>

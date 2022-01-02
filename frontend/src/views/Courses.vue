@@ -4,7 +4,9 @@
          <div class="router">
             <div>
                <router-link :key="group.groups_id" v-for="group in groups"
-                            @click="setGroup(group)" :to="group.type === 'SUBJECTS' ? `/groupes/subject/${group.groups_id}/accueil` : `/groupes/subject/${group.groups_id}/discussion`">
+                            @click="setGroup(group)" :to="group.type === 'SUBJECTS' ? `/groupes/subject/${group.groups_id}/accueil` : `/groupes/subject/${group.groups_id}/discussion`"
+                            :class="getGroup.groups_id === group.groups_id && 'router-link-active'"
+               >
                   <div class="group">
                      {{ group.description }}
                   </div>
@@ -33,7 +35,7 @@ export default {
    name: "Courses",
    components: {JoinGroup, Account},
    computed: {
-      ...mapGetters(['getUser'])
+      ...mapGetters(['getUser', 'getGroup'])
    },
    data() {
       return {
@@ -54,11 +56,6 @@ export default {
          }
       },
       ...mapActions(['setGroup']),
-      create(event) {
-         if ((event.type === 'keydown' && event.keyCode === 13) || event.type === 'click') {
-            console.log(event);
-         }
-      },
       addInGroups(group) {
          if (!Number(group.id))
             return

@@ -6,10 +6,10 @@
             <div class="buttons">
                <button :style="pinAdd ? { animation: '' } : { animation: 'none' }" style="height: 100%;"
                        @click="showPinned = !showPinned;">
-                  <img src="../../../../assets/pin.png" alt="">
+                  <img src="/assets/pin.png" alt="">
                </button>
                <button style="cursor: pointer;" @click="showUserList = true;">
-                  <img src="../../../../assets/user.svg" alt="">
+                  <img src="/assets/user.svg" alt="">
                </button>
                <w-drawer
                      v-model="showUserList"

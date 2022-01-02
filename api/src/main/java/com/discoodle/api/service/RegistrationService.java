@@ -3,7 +3,6 @@ package com.discoodle.api.service;
 import com.discoodle.api.model.User;
 
 import com.discoodle.api.request.RegistrationRequest;
-import com.discoodle.api.security.mailConfirmation.MailSender;
 import com.discoodle.api.security.token.ConfirmationToken;
 import com.discoodle.api.security.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
@@ -13,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -29,7 +29,7 @@ public class RegistrationService {
             // Regex for mail with at (@).
             if (request.getMail().matches("^(.+)@(.+)$")) {
                // Create a token with user's inputs and add user in database.
-               String token = userService.signUpUser(
+               return userService.signUpUser(
                      new User(
                            request.getMail(),
                            request.getUsername(),
@@ -39,7 +39,6 @@ public class RegistrationService {
                            User.Role.STUDENT
                      )
                );
-               return token;
             }
             return "Votre mail n'est pas valide.\n";
          }
@@ -57,7 +56,8 @@ public class RegistrationService {
    }
 
    public String login(RegistrationRequest request) {
-      if (userService.getUserByUserName(request.getUsername()).get().isEnabled()) {
+      Optional<User> user = userService.getUserByUserName(request.getUsername());
+      if (user.isPresent()) {
          return userService.login(request.getUsername(), request.getPassword());
       }
       return "Votre compte n'est pas activé ou il n'existe pas.";

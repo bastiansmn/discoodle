@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "server")
+@ToString
 public class Server {
 
     public Server(String name) {
@@ -37,12 +38,14 @@ public class Server {
     @JoinTable(name = "link_server_room",
             joinColumns = @JoinColumn(name = "server_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id"))
+    @ToString.Exclude
     private List<Room> rooms = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(name = "link_server_users",
             joinColumns = @JoinColumn(name = "server_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @ToString.Exclude
     private List<User> users = new ArrayList<>();
 
 }

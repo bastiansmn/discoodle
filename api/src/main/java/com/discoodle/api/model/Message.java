@@ -19,7 +19,7 @@ public class Message {
     private Long message_id;
 
     @Column(name = "conv_uuid")
-    private String conv_uuid;
+    private Integer conv_uuid;
 
     @Lob
     @Column(name = "content", columnDefinition = "text")
@@ -41,7 +41,7 @@ public class Message {
     private String type;
 
 
-    public Message(String content, String sender, Long message_date, String conv_uuid) {
+    public Message(String content, String sender, Long message_date, Integer conv_uuid) {
         this.content = content;
         this.sender = sender;
         this.pinned = false;

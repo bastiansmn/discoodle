@@ -1,8 +1,5 @@
-dev: log
-	@echo "Dev"
-
 build: log
-	@echo "Build"
+	@cd frontend && npm run build && mv dist/* ../api/src/main/resources/static/
 
 deploy: log
 	@./deploy.sh
@@ -14,3 +11,8 @@ deletelog:
 
 makelog:
 	@touch make.log
+
+clean: deletelog
+	@cd frontend && rm -rf dist package-lock.json
+	@cd api && rm -rf target
+	@cd api/src/main/resources/static && rm -rf assets css img js index.html root.css

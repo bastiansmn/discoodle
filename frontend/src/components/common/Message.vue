@@ -29,10 +29,10 @@
 
          <div class="buttons" v-if="showPin" :style="belong_to_myself ? { left: '-50px' } : { right: '50px' }">
             <button class="pin-message" @click="pinMessage" v-if="canPin">
-               <img src="../../assets/pin.png" alt="">
+               <img src="/assets/pin.png" alt="">
             </button>
             <button class="edit-message" @click="messageEdit = true" v-if="belong_to_myself && canEdit">
-               <img src="../../assets/pen.svg" alt="Pen">
+               <img src="/assets/pen.svg" alt="Pen">
             </button>
             <button class="delete-message" @click="deleteMessage" v-if="canRemove">
                X

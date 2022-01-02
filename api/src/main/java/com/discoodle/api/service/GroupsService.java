@@ -135,10 +135,8 @@ public class GroupsService {
         // Get the group in database.
         Optional<Groups> tempGroup = groupsRepository.findGroupsByID(groups_id);
         // If group is present.
-        if (tempGroup.isPresent())
-            // Return his server.
-            return Optional.of(tempGroup.get().getServer());
-        return Optional.empty();
+        // Return his server.
+        return tempGroup.map(Groups::getServer);
     }
 
     public Optional<Groups> findGroupsByID(Long groups_ID) {
