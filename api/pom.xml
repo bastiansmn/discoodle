@@ -18,6 +18,11 @@
 
     <properties>
         <java.version>15</java.version>
+        <mainClass>com.discoodle.api.ApiApplication</mainClass>
+<!--        <PORT>${env.PORT}</PORT>-->
+<!--        <DB_URL>${env.DB_URL}</DB_URL>-->
+<!--        <DB_USERNAME>${env.DB_USERNAME}</DB_USERNAME>-->
+<!--        <DB_PASSWORD>${env.DB_PASSWORD}</DB_PASSWORD>-->
     </properties>
 
 

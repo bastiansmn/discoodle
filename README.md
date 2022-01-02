@@ -9,9 +9,9 @@
   <p align="center">
     <a href="http://82.123.93.44:8080/">Voir la démonstration</a>
     ·
-    <a href="https://gaufre.informatique.univ-paris-diderot.fr/somon/discoodle/issues">Signaler des bugs</a>
+    <a href="https://github.com/bastiansmn/discoodle/issues">Signaler des bugs</a>
     ·
-    <a href="https://gaufre.informatique.univ-paris-diderot.fr/somon/discoodle/issues">Faire une requête d'amélioration</a>
+    <a href="https://github.com/bastiansmn/discoodle/issues">Faire une requête d'amélioration</a>
   </p>
 
 <details open="open">
@@ -98,40 +98,31 @@ _NB : npm est installé avec Node.js, il ne sera donc pas nécessaire de l'insta
 
 ### <div id="demarrage-global"><ins>Démarrage de l'intégralité du projet</ins></div>
 
-Avant de compiler pour la première fois le projet, pensez à exécuter la commande suivante:
+Avant de lancer le projet pour la première fois, il faut installer les dépendances JS 
 ```
-cd frontend && npm install
-```
-Ensuite, depuis un terminal Unix, lancez la commande suivante à la racine du projet:
-```
-./discoodle.sh [user] no-bdd
-```
-Où user est le nom d'utilisateur MariaDB et no-bdd est un argument optionnel.
-#### <ins>_Uniquement le frontend_</ins> :
-
-- Lancer le frontend
-
-```
-cd frontend
-npm install
-npm run serve 
+cd frontend && npm i
 ```
 
-Pour customiser la configuration : [ici](https://cli.vuejs.org/config/).
+Pour customiser la configuration de Vue.JS: [ici](https://cli.vuejs.org/config/).
 
-#### <ins>_Uniquement le backend_</ins> :
+Vous pouvez utiliser les configurations de votre IDE pour lancer le projet (IntelliJ propose de bonnes configurations et VSCode aussi grâce au pack d'extensions Spring). 
+Vous pouvez aussi lancer le projet depuis la CLI :
 
-- Lancer le backend
-
+Frontend :
 ```
-cd api
-mvn spring-boot:run
+cd frontend && npm run serve
+```
+Backend :
+```
+cd api && mvn spring-boot:run
 ```
 
+Si vous avez des problèmes dans le lancement du projet, utiliser la commande `make clean` à la racine devrait nettoyer l'intégralité du repo, et kill les processus tournant sur les ports nécessaires
 
-## <div id="tests">Les tests à réaliser</div>
+#### <in>Build le projet :</ins>
 
-*Noter tous les tests envisageables*
+Vous ne pouvez pas build l'intégralité du projet car il nécessite les logs de la BDD. Vous pouvez tout de même build le frontend avec :
+`cd frontend && npm run build`
 
 ## <div id="issues">Feuille de route des issues</div>
 
