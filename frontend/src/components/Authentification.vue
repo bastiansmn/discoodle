@@ -95,7 +95,6 @@ export default {
 
                axios.get(`/api/users/findByUserName?username=${document.querySelector("input[name=userlog]").value}`).then(response => {
                   if (!response.data.locked) {
-                     this.setUser(response.data);
                      this.$emit("logSuccess")
                   } else {
                      this.errorMessage = "Votre compte a été bloqué";

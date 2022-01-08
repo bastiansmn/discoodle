@@ -52,7 +52,7 @@
             <li>- Le serveur ne permet pas le rechargement de la page (le routing n'est pas géré côté serveur)</li>
          </ul>
          <p>
-            Si vous rencontrez des problèmes non mentionnés, n'hésitez pas à ouvrir une issue sur <a href="https://github.com/bastiansmn/discoodle">le repository</a>
+            Si vous rencontrez des problèmes non mentionnés, n'hésitez pas à ouvrir une issue sur <a target="_blank" href="https://github.com/bastiansmn/discoodle">le repository</a>
          </p>
          <br>
          <span><strong>Nous contacter :</strong></span>

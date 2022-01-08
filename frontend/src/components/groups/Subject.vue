@@ -3,7 +3,7 @@
       <div class="navbar">
          <div>
             <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/accueil`"><div>Accueil</div></router-link>
-            <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/cours`"><div>Cours</div></router-link>
+<!--            <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/cours`"><div>Cours</div></router-link>-->
             <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/discussion`"><div>Chat</div></router-link>
             <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/notes`"><div>Notes</div></router-link>
             <router-link class="navbar-links" :to="`/groupes/subject/${getGroup.groups_id}/parametres`" v-if="rights.canChangeGroup"><div>Paramètres</div></router-link>
