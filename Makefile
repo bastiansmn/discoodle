@@ -1,8 +1,9 @@
 build: clean log
 	@cd frontend && npm run build &> ../make.log && mv dist/* ../api/src/main/resources/static/
-	@cd api && mvn clean install &> ../make.log
+	@cd api && mvn clean package &> ../make.log
 	@cp api/.env api/target/
-	@cd api/target && export $(cat .env | xargs)
+	@cd api/target && export $(cat .env | xargs) &> /dev/null
+	@mv api/target build
 
 deploy: log
 	@./deploy.sh

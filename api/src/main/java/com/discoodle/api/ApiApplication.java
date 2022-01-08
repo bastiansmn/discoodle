@@ -14,26 +14,25 @@ import java.util.Collections;
 @SpringBootApplication
 public class ApiApplication {
 
-   public static final String RESSOURCES = "src/main/resources/";
+    public static final String RESSOURCES = "src/main/resources/";
 
-   public static void main(String[] args) {
-      SpringApplication.run(ApiApplication.class, args);
-   }
+    public static void main(String[] args) {
+        SpringApplication.run(ApiApplication.class, args);
+    }
 
-   // Fix the CORS errors
-   @Bean
-   public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
-      UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-      CorsConfiguration config = new CorsConfiguration();
-      config.setAllowCredentials(true);
-      // *** URL below needs to match the Vue client URL (in dev and prod) and port ***
-      config.setAllowedOrigins(Collections.singletonList("http://localhost:8081"));
-      config.setAllowedMethods(Collections.singletonList("*"));
-      config.setAllowedHeaders(Collections.singletonList("*"));
-      source.registerCorsConfiguration("/**", config);
-      FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
-      bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
-      return bean;
-   }
+    // Fix the CORS errors
+    @Bean
+    public FilterRegistrationBean<CorsFilter> simpleCorsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        // *** URL below needs to match the Vue client URL (in dev and prod) and port ***
+        config.setAllowedOrigins(Collections.singletonList("http://localhost:8081"));
+        config.setAllowedMethods(Collections.singletonList("*"));
+        source.registerCorsConfiguration("/**", config);
+        FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>(new CorsFilter(source));
+        bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return bean;
+    }
 
 }
