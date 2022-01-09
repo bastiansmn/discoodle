@@ -1,1 +1,0 @@
-web: java -jar build/api-2.6.1.jar
