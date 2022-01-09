@@ -12,11 +12,11 @@ make.log
 node_modules
 /dist
 .vscode
-**/.env
 
 api/src/main/resources/static/common/json/*.json
 
 # local env files
+.env
 .env.local
 .env.*.local
 

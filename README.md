@@ -124,6 +124,19 @@ Si vous avez des problèmes dans le lancement du projet, utiliser la commande `m
 Vous ne pouvez pas build l'intégralité du projet car il nécessite les logs de la BDD. Vous pouvez tout de même build le frontend avec :
 `cd frontend && npm run build`
 
+Si vous avez accès à tous le projet (demandez l'accès à bastian.somon@gmail.com) :
+
+Pour build :
+```shell
+make
+```
+Pour lancer le projet avec les bonnes variables d'environnement :
+```shell
+cd build
+export $(cat .env | xargs)
+java -jar api-2.6.1.jar
+```
+
 ## <div id="issues">Feuille de route des issues</div>
 
 #### <ins>_DISCOO-START_</ins> :

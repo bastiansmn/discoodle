@@ -20,7 +20,7 @@
       </div>
       <router-view @groupAdded="pushInGroups($event);" />
    </div>
-   <Account @logSuccess="getRooms(getUser.role)" v-else/>
+   <Account @logSuccess="getRooms(this.getUser.role)  " v-else/>
 
 
 </template>

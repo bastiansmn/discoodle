@@ -205,7 +205,7 @@
       </div>
    </div>
    <div style="width: 100%; height: 100%;" v-else>
-      <Authentication @logSuccess="_ => {
+      <Authentication @logSuccess="$event => {
          this.isAuthentificated = true; updateEstablishment(); $emit('logSuccess');
       }"/>
    </div>

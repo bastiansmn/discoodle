@@ -4,6 +4,7 @@ build: clean log
 	@cp api/.env api/target/
 	@cd api/target && export $(cat .env | xargs) &> /dev/null
 	@mv api/target build
+	@cp api/.env build
 
 deploy: log
 	@./deploy.sh
@@ -20,5 +21,6 @@ clean: deletelog
 	@kill $(lsof -t -i:8080) 2> /dev/null || true
 	@kill $(lsof -t -i:8081) 2> /dev/null || true
 	@cd frontend && rm -rf dist package-lock.json
+	@rm -r build
 	@cd api && mvn clean &> /dev/null
 	@cd api/src/main/resources/static && rm -rf assets css img js index.html root.css

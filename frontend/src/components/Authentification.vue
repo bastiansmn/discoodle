@@ -89,12 +89,14 @@ export default {
             username: document.querySelector("input[name=userlog]").value,
             password: document.querySelector("input[name=passwordlog]").value,
          }).then(response => {
+            const username = document.querySelector("input[name=userlog]").value;
             if (response.data === "") {
                if (document.querySelector(".login > div > label > input[type=checkbox]").checked)
-                  vueCookie.set("username", document.querySelector("input[name=userlog]").value, {expires: '1Y'});
+                  vueCookie.set("username", username, {expires: '1Y'});
 
-               axios.get(`/api/users/findByUserName?username=${document.querySelector("input[name=userlog]").value}`).then(response => {
+               axios.get(`/api/users/findByUserName?username=${username}`).then(response => {
                   if (!response.data.locked) {
+                     this.setUser(response.data);
                      this.$emit("logSuccess")
                   } else {
                      this.errorMessage = "Votre compte a été bloqué";
