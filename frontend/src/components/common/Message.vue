@@ -7,10 +7,9 @@
             (Modifié)
          </span>
          <w-tooltip :left="belong_to_myself" :right="!belong_to_myself" v-if="!messageEdit"
-                    :class="mention ? 'message-content mention' : 'message-content'"
-                    :style="belong_to_myself ? { marginRight: '10px', backgroundColor: '#e85c5c', color: '#F4F4F4', fontWeight: 500 } : { marginLeft: '10px', backgroundColor: '#C4C4C4' }">
+                    :class="mention ? 'message-content mention' : 'message-content'">
             <template #activator="{ on }">
-               <div v-on="on" v-html="displayMessage(content, true, true, true)">
+               <div v-on="on" class="message-content" :style="belong_to_myself ? { marginRight: '10px', backgroundColor: '#e85c5c', color: '#F4F4F4', fontWeight: 500 } : { marginLeft: '10px', backgroundColor: '#C4C4C4' }" v-html="displayMessage(content, true, true, true)">
 
                </div>
             </template>
@@ -218,7 +217,6 @@ export default {
    hyphens: manual;
    word-wrap: break-word;
 
-   background-color: #C4C4C4;
    color: #454150;
    border-radius: 12px;
 

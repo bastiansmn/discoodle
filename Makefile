@@ -12,15 +12,15 @@ deploy: log
 log: deletelog makelog
 
 deletelog:
-	@rm make.log 2> /dev/null || true
+	-@rm make.log 2> /dev/null
 
 makelog:
 	@touch make.log
 
 clean: deletelog
-	@kill $(lsof -t -i:8080) 2> /dev/null || true
-	@kill $(lsof -t -i:8081) 2> /dev/null || true
-	@cd frontend && rm -rf dist package-lock.json
-	@rm -r build
+	-@kill $(lsof -t -i:8080) 2> /dev/null
+	-@kill $(lsof -t -i:8081) 2> /dev/null
+	-@cd frontend && rm -rf dist package-lock.json
+	-@rm -r build
 	@cd api && mvn clean &> /dev/null
-	@cd api/src/main/resources/static && rm -rf assets css img js index.html root.css
+	-@cd api/src/main/resources/static && rm -rf assets css img js index.html root.css
