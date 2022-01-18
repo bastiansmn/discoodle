@@ -10,7 +10,7 @@ make.log
 
 .DS_Store
 node_modules
-/dist
+dist
 .vscode
 
 api/src/main/resources/static/common/json/*.json

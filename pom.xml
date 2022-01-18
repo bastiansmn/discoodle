@@ -97,6 +97,7 @@
                       <goals>
                         <goal>install-node-and-npm</goal>
                       </goals>
+                      <phase>install</phase>
                       <configuration>
                         <!-- See https://nodejs.org/en/download/ for latest node and npm (lts) versions -->
                         <nodeVersion>v16.13.2</nodeVersion>
@@ -109,6 +110,7 @@
                       <goals>
                         <goal>npm</goal>
                       </goals>
+                      <phase>install</phase>
                       <configuration>
                         <arguments>install</arguments>
                       </configuration>
@@ -119,6 +121,7 @@
                       <goals>
                         <goal>npm</goal>
                       </goals>
+                      <phase>install</phase>
                       <configuration>
                         <arguments>run build</arguments>
                       </configuration>
@@ -132,7 +135,7 @@
                 <executions>
                     <execution>
                         <id>copy-resources</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -157,6 +160,22 @@
                         <id>copy-dependencies</id>
                         <phase>package</phase>
                         <goals><goal>copy-dependencies</goal></goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.discoodle.api.ApiApplication</mainClass>
+                </configuration>
+        
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
