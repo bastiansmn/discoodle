@@ -10,7 +10,7 @@ make.log
 
 .DS_Store
 node_modules
-/dist
+dist
 .vscode
 
 api/src/main/resources/static/common/json/*.json
@@ -32,10 +32,11 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
-/api/target/
-api/src/main/resources/static/assets/
-api/src/main/resources/static/css/
-api/src/main/resources/static/img/
-api/src/main/resources/static/index.html
-api/src/main/resources/static/js/
-api/src/main/resources/static/root.css
+
+target/
+src/main/resources/static/assets/
+src/main/resources/static/css/
+src/main/resources/static/img/
+src/main/resources/static/index.html
+src/main/resources/static/js/
+src/main/resources/static/root.css
