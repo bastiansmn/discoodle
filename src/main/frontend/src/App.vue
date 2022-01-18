@@ -50,6 +50,7 @@
             <li>- Le host de la base de donnée peut parfois empêcher les requêtes distantes (peut-être si vous visitez le site depuis un réseau public)</li>
             <li>- Le WebRTC (partage d'écran/webcam en ligne) ne fonctionne plus à cause de la dépendances Firebase pas mise à jour. Ainsi, le quiz interactif lié n'est plus fonctionnel (ces fonctionnalités étaient des points supplémentaires qu'il ne nous était pas demandé d'implémenter.</li>
             <li>- Le serveur ne permet pas le rechargement de la page (le routing n'est pas géré côté serveur)</li>
+            <li>- Le site n'est absolument pas responsive</li>
          </ul>
          <p>
             Si vous rencontrez des problèmes non mentionnés, n'hésitez pas à ouvrir une issue sur <a target="_blank" href="https://github.com/bastiansmn/discoodle">le repository</a>
