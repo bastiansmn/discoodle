@@ -71,10 +71,12 @@ export default {
          // TODO : Changer tous les appels vers l'api (localhost:8080 si dev, rien si prod
          axios.post(`/api/registration`, {
             mail: document.querySelector("input[name=mailReg]").value,
-            password: document.querySelector("input[name=passwordReg]").value,
-            last_name: document.querySelector("input[name=lastname]").value,
-            name: document.querySelector("input[name=name]").value,
             username: document.querySelector("input[name=username]").value,
+            password: document.querySelector("input[name=passwordReg]").value,
+            name: document.querySelector("input[name=name]").value,
+            last_name: document.querySelector("input[name=lastname]").value,
+            link_to_avatar: "",
+            role: "STUDENT"
          }).then(response => {
             if (response.data.match("([a-z0-9]+-)+[a-z0-9]+"))
                this.showLogin = true;

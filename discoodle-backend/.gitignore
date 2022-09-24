@@ -1,0 +1,41 @@
+discoodle.iml
+frontend.iml
+node
+node_modules/
+.mvn
+api.iml
+package-lock.json
+make.log
+
+.DS_Store
+node_modules
+dist
+.vscode
+
+api/src/main/resources/static/common/json/*.json
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+target/
+src/main/resources/static/assets/
+src/main/resources/static/css/
+src/main/resources/static/img/
+src/main/resources/static/index.html
+src/main/resources/static/js/
+src/main/resources/static/root.css

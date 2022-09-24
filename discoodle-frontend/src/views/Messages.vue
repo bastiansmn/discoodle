@@ -9,7 +9,7 @@
                <AddConversation v-if="showPopUp" @groupAdded="addNewRoom" @desactivatePopUp="showPopUp = false" />
 
                <a class="settings" v-if="JSON.stringify($route.params) === JSON.stringify({})" :style="modifying ? { animation: '10s cubic-bezier(.11, 0, .09, 1) settingsRoll' } : {}" href="#/messages" @click="modifying = !modifying;"><img src="../assets/settings.png" alt="Settings"
-                                          style="height: 100%; width: 100%;"></a>
+                                                                                                                                                                                                                                                style="height: 100%; width: 100%;"></a>
                <router-link v-else to="/messages" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: transparent !important;">
                   <img src="../assets/arrow.svg" alt="" style="width: 70%;">
                </router-link>

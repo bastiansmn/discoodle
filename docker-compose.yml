@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+
+  # Service for the database
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-discoodle}
+      MARIADB_USER: ${DB_USER:-discoodle}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD:-discoodle}
+      MARIADB_PASSWORD: ${DB_PASSWORD:-root}
+    ports:
+      - "${DB_PORT:-3307}:3306"
+    volumes:
+      - db-data:/var/run/mysqld
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    ports:
+      - "${ADMINER_PORT:-8081}:8081"
+    depends_on:
+      - mariadb
+
+  # Service for the vue-app
+  frontend:
+    container_name: frontend-app
+    build: discoodle-frontend/.
+    ports:
+      - "80:80"
+
+  # Service for the backend
+  backend:
+    container_name: backend-app
+    build: discoodle-backend/.
+    environment:
+      PORT: 8080
+      DB_URL: jdbc:mysql://localhost:3307/${DB_NAME:-discoodle}
+      DB_USERNAME: ${DB_USER:-discoodle}
+      DB_PASSWORD: ${DB_PASSWORD:-root}
+    depends_on:
+      - mariadb
+    links:
+      - mariadb
+    ports:
+      - "${PORT:-8080}:8080"
+
+volumes:
+  db-data:
