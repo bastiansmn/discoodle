@@ -39,7 +39,7 @@ services:
     build: discoodle-backend/.
     environment:
       PORT: 8080
-      DB_URL: jdbc:mysql://localhost:3307/${DB_NAME:-discoodle}
+      DB_URL: jdbc:mysql://mariadb:3306/${DB_NAME:-discoodle}
       DB_USERNAME: ${DB_USER:-discoodle}
       DB_PASSWORD: ${DB_PASSWORD:-root}
     depends_on:
