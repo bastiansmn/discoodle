@@ -132,7 +132,7 @@ export default {
       },
       addNoteForUser() {
          if (this.formWellFilled()) {
-            axios.post("/api/note/addNewNote", {
+            axios.post(`${process.env.VUE_APP_API_URL}/api/note/addNewNote`, {
                user_id: this.inputNote.user.id,
                group_id: this.getGroup.groups_id,
                note: (Number(this.inputNote.note) / this.maxNote) * 20,
@@ -151,7 +151,7 @@ export default {
       },
       removeNote() {
          if (this.table.noteSelection.item?.id >= 0) {
-            axios.delete(`/api/note/deleteNoteById?note_id=${this.table.noteSelection.item.id}`).then(() => {
+            axios.delete(`${process.env.VUE_APP_API_URL}/api/note/deleteNoteById?note_id=${this.table.noteSelection.item.id}`).then(() => {
                this.table.items = this.table.items.filter(e => {
                   return e.id !== this.table.noteSelection.item.id;
                });
@@ -164,7 +164,7 @@ export default {
    },
    beforeRouteUpdate() {
       if (this.getUser.role === "STUDENT") {
-         axios.get(`/api/note/getUserNoteByGroupId?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/note/getUserNoteByGroupId?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
             this.table.items = response.data.map(e => {
                return {
                   id: e.note_id,
@@ -193,7 +193,7 @@ export default {
       }
 
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")
@@ -226,7 +226,7 @@ export default {
          }
 
          if (this.rights.canModifyNotes) {
-            axios.get(`/api/note/getAllNoteByGroupId?group_id=${this.getGroup.groups_id}`).then(response => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/note/getAllNoteByGroupId?group_id=${this.getGroup.groups_id}`).then(response => {
                this.table.items = response.data.map(e => {
                   return {
                      id: e.id,
@@ -257,7 +257,7 @@ export default {
    },
    mounted() {
       if (this.getUser.role === "STUDENT") {
-         axios.get(`/api/note/getUserNoteByGroupId?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/note/getUserNoteByGroupId?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
             this.table.items = response.data.map(e => {
                return {
                   id: e.note_id,
@@ -286,7 +286,7 @@ export default {
       }
 
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")
@@ -319,7 +319,7 @@ export default {
          }
 
          if (this.rights.canModifyNotes) {
-            axios.get(`/api/note/getAllNoteByGroupId?group_id=${this.getGroup.groups_id}`).then(response => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/note/getAllNoteByGroupId?group_id=${this.getGroup.groups_id}`).then(response => {
                this.table.items = response.data.map(e => {
                   return {
                      id: e.note_id,

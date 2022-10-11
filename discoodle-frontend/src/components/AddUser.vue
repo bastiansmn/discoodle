@@ -78,7 +78,7 @@ export default {
    },
    mounted() {
       if (this.getCurrentConv !== "")
-         axios.get(`/api/rooms/findUserOfRoom?room_id=${this.getCurrentConv}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/rooms/findUserOfRoom?room_id=${this.getCurrentConv}`).then(response => {
             this.users = response.data;
          })
    }

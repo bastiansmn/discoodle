@@ -90,7 +90,7 @@ export default {
    },
    mounted() {
       if (vueCookie.get("username") !== null && vueCookie.get("username") !== "") {
-         axios.get(`/api/users/findByUserName?username=${vueCookie.get("username")}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${vueCookie.get("username")}`).then(response => {
             const user = response.data;
             if (!user.locked)
                this.setUser(user);

@@ -224,7 +224,7 @@ export default {
             } else if (message.type === "USERS_ADDED") {
                message.users.forEach(user => {
                   if (this.containUsername(user)) {
-                     axios.get(`/api/users/findByUserName?username=${user}`).then(response => {
+                     axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${user}`).then(response => {
                         this.users.push(response.data)
                      })
                   }
@@ -248,7 +248,7 @@ export default {
          let messageContent = document.querySelector(".conv-input > div > input");
 
          if (messageContent && stompClient) {
-            axios.post(`/api/messages/sendMessage?room_uuid=${this.getCurrentConv}`, {
+            axios.post(`${process.env.VUE_APP_API_URL}/api/messages/sendMessage?room_uuid=${this.getCurrentConv}`, {
                conv_uuid: this.getCurrentConv,
                content: messageContent.value,
                sender: this.getUser.username,
@@ -271,14 +271,14 @@ export default {
 
 
       promoteAdmin(user_id) {
-         axios.put(`/api/rooms/changeAdmin?room_id=${this.getCurrentConv}&admin=${user_id}`)
-         stompClient.send(`/conversations/rooms/${this.getCurrentConv}`, {}, JSON.stringify({
+         axios.put(`${process.env.VUE_APP_API_URL}/api/rooms/changeAdmin?room_id=${this.getCurrentConv}&admin=${user_id}`)
+         stompClient.send(`${process.env.VUE_APP_API_URL}/conversations/rooms/${this.getCurrentConv}`, {}, JSON.stringify({
             user_id: user_id,
             type: "CHANGE_ADMIN"
          }));
       },
       unpinMessage(messageID) {
-         axios.put(`/api/messages/unpinMessage?message_id=${messageID}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/messages/unpinMessage?message_id=${messageID}`).then(() => {
             let c = 0;
             this.pinned.forEach(elt => {
                if (elt.message_id === messageID)
@@ -318,8 +318,8 @@ export default {
       async addUsers(users) {
          for (const user of users) {
             if (this.containUsername(user)) {
-               await axios.get(`/api/users/findByUserName?username=${user}`).then(response => {
-                  axios.post(`/api/rooms/addNewMember?room_id=${this.getCurrentConv}&user_id=${response.data.id}`)
+               await axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${user}`).then(response => {
+                  axios.post(`${process.env.VUE_APP_API_URL}/api/rooms/addNewMember?room_id=${this.getCurrentConv}&user_id=${response.data.id}`)
                })
             }
          }
@@ -329,8 +329,8 @@ export default {
          }));
       },
       removerUser(user_id) {
-         axios.delete(`/api/rooms/removeMember?room_id=${this.getCurrentConv}&user_id=${user_id}`)
-         stompClient.send(`/conversations/rooms/${this.getCurrentConv}`, {}, JSON.stringify({
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/rooms/removeMember?room_id=${this.getCurrentConv}&user_id=${user_id}`)
+         stompClient.send(`${process.env.VUE_APP_API_URL}/conversations/rooms/${this.getCurrentConv}`, {}, JSON.stringify({
             user_id: user_id,
             type: "USER_REMOVED"
          }));
@@ -349,7 +349,7 @@ export default {
             }
          }).then(response => {
             if (response.data !== "L'extension n'est pas un fichier jpg ou png, il ne peut donc pas être upload" && response.data !== "Erreur lors du téléchargement de l'image !") {
-               axios.post(`/api/messages/sendMessage?room_uuid=${this.getCurrentConv}`, {
+               axios.post(`${process.env.VUE_APP_API_URL}/api/messages/sendMessage?room_uuid=${this.getCurrentConv}`, {
                   conv_uuid: this.getCurrentConv,
                   content: `![${"Image de " + this.getUser.username}](${response.data})`,
                   sender: this.getUser.username,
@@ -399,12 +399,12 @@ export default {
 
 
       getUserOfRoom() {
-         axios.get(`/api/rooms/findUserOfRoom?room_id=${this.getCurrentConv}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/rooms/findUserOfRoom?room_id=${this.getCurrentConv}`).then(response => {
             this.room.users = response.data;
          });
       },
       getMessagesFromJSON() {
-         axios.get(`/api/messages?room_uuid=${this.getCurrentConv}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/messages?room_uuid=${this.getCurrentConv}`).then(response => {
             this.messages = response.data.sort((a, b) => b.message_date - a.message_date);
             this.pinned = this.messages.filter(elt => (elt.pinned === true));
          });
@@ -445,14 +445,14 @@ export default {
    },
 
    mounted() {
-      axios.get(`/api/rooms/findRoomByID?room_uuid=${this.getCurrentConv}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/rooms/findRoomByID?room_uuid=${this.getCurrentConv}`).then(response => {
          this.room = response.data;
          this.getMessagesFromJSON();
          this.connect();
       })
 
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")
@@ -487,14 +487,14 @@ export default {
    },
    beforeRouteUpdate() {
       this.disconnect();
-      axios.get(`/api/rooms/findRoomByID?room_uuid=${this.getCurrentConv}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/rooms/findRoomByID?room_uuid=${this.getCurrentConv}`).then(response => {
          this.room = response.data;
          this.getMessagesFromJSON();
       })
       this.connect();
 
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")

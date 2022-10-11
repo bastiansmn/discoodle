@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface RolesRepository extends JpaRepository<Roles, Long> {
 
     @Query(value = "SELECT role FROM Roles role WHERE role.name = :name AND role.role_id=:role_id ")
-    Optional<Roles> getRolesByNameAnAndGroupsId(String name, Long role_id);
+    Optional<Roles> getRolesByNameAnAndGroupsId(@Param("name") String name, @Param("role_id") Long role_id);
 
     @Transactional
     @Modifying

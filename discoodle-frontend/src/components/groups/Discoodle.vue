@@ -236,7 +236,7 @@ export default {
          }
       },
       changeUserRole() {
-         axios.put(`/api/users/changeRole?user_id=${this.users.selection.id}&role=${this.users.changingRole}`).then(response => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/users/changeRole?user_id=${this.users.selection.id}&role=${this.users.changingRole}`).then(response => {
             this.users.roleChangedPopUp.show = true;
             this.users.roleChangedPopUp.error = !!response.data.startsWith("ERR|");
             if (this.users.roleChangedPopUp.error)
@@ -257,7 +257,7 @@ export default {
 
       },
       lockOrUnlockUser(isLocked) {
-         axios.put(`/api/users/lockOrUnlock?user_id=${this.users.selection.id}&lock=${!isLocked}`).then(response => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/users/lockOrUnlock?user_id=${this.users.selection.id}&lock=${!isLocked}`).then(response => {
             if (response.data?.id) {
                this.users.list.forEach(e => {
                   if (e.id === response.data.id)
@@ -268,7 +268,7 @@ export default {
       },
 
       acceptTeacherRequest(user_id) {
-         axios.put(`/api/TeacherRequest/acceptTeacherRequest?user_id=${user_id}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/TeacherRequest/acceptTeacherRequest?user_id=${user_id}`).then(() => {
             this.requests.teacher.list = this.requests.teacher.list.filter(elt => {
                return elt.user.id !== user_id;
             });
@@ -279,7 +279,7 @@ export default {
          });
       },
       refuseTeacherRequest(user_id) {
-         axios.put(`/api/TeacherRequest/refuseTeacherRequest?user_id=${user_id}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/TeacherRequest/refuseTeacherRequest?user_id=${user_id}`).then(() => {
             this.requests.teacher.list = this.requests.teacher.list.filter(elt => {
                return elt.user.id !== user_id;
             });
@@ -287,14 +287,14 @@ export default {
       },
 
       acceptEstablishment(er_id) {
-         axios.put(`/api/establishmentRequest/acceptEstablishmentRequest?er_id=${er_id}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/establishmentRequest/acceptEstablishmentRequest?er_id=${er_id}`).then(() => {
             this.requests.establishments.list = this.requests.establishments.list.filter(e => {
                return e.er_id !== er_id;
             });
          });
       },
       refuseEstablishment(er_id) {
-         axios.put(`/api/establishmentRequest/refuseEstablishmentRequest?er_id=${er_id}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/establishmentRequest/refuseEstablishmentRequest?er_id=${er_id}`).then(() => {
             this.requests.establishments.list = this.requests.establishments.list.filter(e => {
                return e.er_id !== er_id;
             });
@@ -303,16 +303,16 @@ export default {
    },
 
    async mounted() {
-      await axios.get("/api/users").then(response => {
+      await axios.get(`${process.env.VUE_APP_API_URL}/api/users`).then(response => {
          this.users.list = response.data.filter(e => {
             return e.id !== this.getUser.id;
          });
          this.users.loading = false;
       });
 
-      await axios.get("/api/TeacherRequest/getTeacherRequestBeingProcessed").then(response => {
+      await axios.get(`${process.env.VUE_APP_API_URL}/api/TeacherRequest/getTeacherRequestBeingProcessed`).then(response => {
          response.data.forEach(elt => {
-            axios.get(`/api/users/infos?user_id=${elt.user_id}`).then(rep => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/users/infos?user_id=${elt.user_id}`).then(rep => {
                this.requests.teacher.list.push({
                   tr_id: elt.tr_id,
                   status: elt.status,
@@ -322,7 +322,7 @@ export default {
          })
       })
 
-      await axios.get("/api/establishmentRequest/getEstablishmentRequestBeingProcessed").then(response => {
+      await axios.get(`${process.env.VUE_APP_API_URL}/api/establishmentRequest/getEstablishmentRequestBeingProcessed`).then(response => {
          this.requests.establishments.list = response.data;
       });
    },

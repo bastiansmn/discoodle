@@ -79,7 +79,7 @@ export default {
    methods: {
       ...mapActions(['setConvUUID']),
       getRoomsFromDB() {
-         axios.get(`/api/users/seeAllRooms?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/users/seeAllRooms?user_id=${this.getUser.id}`).then(response => {
             this.convList = response.data
          });
       },
@@ -95,7 +95,7 @@ export default {
          if (this.new_name === "")
             return
          const conv_uuid = this.getCurrentConv;
-         axios.put(`/api/rooms/renameRoom?room_id=${conv_uuid}&new_name=${this.new_name}`).then(() => {
+         axios.put(`${process.env.VUE_APP_API_URL}/api/rooms/renameRoom?room_id=${conv_uuid}&new_name=${this.new_name}`).then(() => {
             this.convList.filter(elt => elt.room_id === conv_uuid).map(elt => elt.room_name = this.new_name);
             this.editRoom.show = false;
             this.modifying = false;
@@ -104,7 +104,7 @@ export default {
       },
       deleteRoom() {
          const conv_uuid = this.getCurrentConv
-         axios.delete(`/api/rooms/removeRoom?room_id=${conv_uuid}`).then(() => {
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/rooms/removeRoom?room_id=${conv_uuid}`).then(() => {
             this.convList = this.convList.filter(elt => elt.room_id !== conv_uuid);
             this.editRoom.show = false;
             this.modifying = false;
@@ -112,7 +112,7 @@ export default {
       },
       exitRoom() {
          const conv_uuid = this.getCurrentConv;
-         axios.delete(`/api/rooms/removeMember?room_id=${conv_uuid}&user_id=${this.getUser.id}`).then(() => {
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/rooms/removeMember?room_id=${conv_uuid}&user_id=${this.getUser.id}`).then(() => {
             this.convList = this.convList.filter(elt => elt.room_id !== conv_uuid);
             this.editRoom.show = false;
             this.modifying = false;

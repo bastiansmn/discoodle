@@ -1,6 +1,4 @@
-FROM maven:3.8-amazoncorretto-17
-ARG JAR_FILE=discoodle-backend-0.0.1-SNAPSHOT.jar
-WORKDIR /backend-app
-COPY pom.xml .
-RUN mvn clean package
-ENTRYPOINT ["java","-jar","$JAR_FILE.jar"]
+FROM openjdk:17-ea-jdk-slim
+ARG JAR_FILE=target/*.jar
+COPY $JAR_FILE app.jar
+ENTRYPOINT ["java","-jar","app.jar"]

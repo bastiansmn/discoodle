@@ -46,11 +46,11 @@ export default {
    methods: {
       getRooms(role) {
          if (role === "STUDENT") {
-            axios.get(`/api/users/seeAllSubjects?user_id=${this.getUser.id}`).then(response => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/users/seeAllSubjects?user_id=${this.getUser.id}`).then(response => {
                this.groups = response.data;
             })
          } else {
-            axios.get(`/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
                this.groups = response.data;
             })
          }
@@ -60,7 +60,7 @@ export default {
          if (!Number(group.id))
             return
          if (!this.groups.map(elt => elt.groups_id).includes(Number(group.id))) {
-            axios.post(`/api/groups/addNewMemberInGroup?group_id=${group.id}&user_id=${this.getUser.id}&token=${group.token}`
+            axios.post(`${process.env.VUE_APP_API_URL}/api/groups/addNewMemberInGroup?group_id=${group.id}&user_id=${this.getUser.id}&token=${group.token}`
             ).then(response => {
                this.groups.push(response.data);
             });

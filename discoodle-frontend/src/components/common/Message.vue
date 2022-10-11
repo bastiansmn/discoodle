@@ -140,16 +140,16 @@ export default {
          return body.innerHTML;
       },
       pinMessage() {
-         axios.put(`/api/messages/pinMessage?message_id=${this.message_id}`);
+         axios.put(`${process.env.VUE_APP_API_URL}/api/messages/pinMessage?message_id=${this.message_id}`);
          this.$emit('pinnedMessage', this.message_id);
       },
       deleteMessage() {
-         axios.delete(`/api/messages/deleteMessage?message_id=${this.message_id}`);
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/messages/deleteMessage?message_id=${this.message_id}`);
          this.$emit('deletedMessage', this.message_id);
       },
       editMessage(content) {
          if (content !== this.content) {
-            axios.put(`/api/messages/editMessage`, {
+            axios.put(`${process.env.VUE_APP_API_URL}/api/messages/editMessage`, {
                message_id: this.message_id,
                content: content
             })
@@ -183,7 +183,7 @@ export default {
       }
    },
    mounted() {
-      axios.get(`/api/users/findByUserName?username=${this.sender}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${this.sender}`).then(response => {
          this.user = response.data;
       })
    }

@@ -14,10 +14,10 @@ import java.util.List;
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
     @Query("SELECT note FROM Note note where note.group_id= ?1")
-    List<Note> getAllNoteByGroupId(Long group_id);
+    List<Note> getAllNoteByGroupId(@Param("user_id") Long group_id);
 
     @Query("SELECT note FROM Note note where note.user_id= ?1")
-    List<Note> getAllNoteByUserId(Long user_id);
+    List<Note> getAllNoteByUserId(@Param("user_id") Long user_id);
 
     @Query("SELECT note FROM Note note  WHERE note.group_id= :group_id AND note.titre= :titre")
     List<Note> getAllNoteByTitre(@Param("group_id") Long group_id,@Param("titre") String titre);

@@ -45,7 +45,7 @@ export default {
       ...mapActions(['setConvUUID']),
       createNewRoom() {
          if (this.newRoomName !== "") {
-            axios.post(`/api/server/addRoom?server_id=${this.getGroup.server.server_id}&name=${this.newRoomName}`).then(response => {
+            axios.post(`${process.env.VUE_APP_API_URL}/api/server/addRoom?server_id=${this.getGroup.server.server_id}&name=${this.newRoomName}`).then(response => {
                this.getGroup.server.rooms.push(response.data);
                this.newRoomName = "";
                this.showAddRoom = false;
@@ -69,7 +69,7 @@ export default {
    },
    beforeRouteUpdate() {
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")
@@ -104,7 +104,7 @@ export default {
    },
    mounted() {
       // Get rights of user in this group.
-      axios.get(`/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?user_id=${this.getUser.id}&group_id=${this.getGroup.groups_id}`).then(response => {
          let fullRights = false;
          response.data.forEach(elt => {
             if (elt.rights === "*")

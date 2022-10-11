@@ -14,10 +14,10 @@ import java.util.List;
 public interface FriendshipsRepository extends JpaRepository<Friendships, Long> {
 
     @Query("SELECT friendships FROM Friendships friendships where friendships.receiver_id = :user_id AND friendships.status = false")
-    List<Friendships> getAllInvitations(Long user_id);
+    List<Friendships> getAllInvitations(@Param("user_id") Long user_id);
 
     @Query("SELECT friendships FROM Friendships friendships where friendships.receiver_id = :user_id OR friendships.sender_id = :user_id")
-    List<Friendships> getALlRelations(Long user_id);
+    List<Friendships> getALlRelations(@Param("user_id") Long user_id);
 
     @Transactional
     @Modifying

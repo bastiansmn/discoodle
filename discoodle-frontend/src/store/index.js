@@ -22,7 +22,8 @@ export default createStore({
             mainStream: null,
             waiting: [],
             showPIP: false
-        }
+        },
+        apiUrl: process.env.VUE_APP_API_URL ?? "http://localhost:8080"
     },
     mutations: {
         SET_CONV_UUID(state, uuid) {

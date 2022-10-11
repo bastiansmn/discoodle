@@ -305,7 +305,7 @@ export default {
          let temp = new FormData();
          temp.append("file", file);
          axios({
-            url: `/api/uploadfile/uploadAvatar?user_id=${this.getUser.id}`,
+            url: `${process.env.VUE_APP_API_URL}/api/uploadfile/uploadAvatar?user_id=${this.getUser.id}`,
             method: 'POST',
             data: temp,
             headers: {
@@ -318,7 +318,7 @@ export default {
       },
       removeLinkToAvatar() {
          if (this.getUser.link_to_avatar !== null) {
-            axios.delete(`/api/uploadfile/deleteAvatar?user_id=${this.getUser.id}`).then(response => {
+            axios.delete(`${process.env.VUE_APP_API_URL}/api/uploadfile/deleteAvatar?user_id=${this.getUser.id}`).then(response => {
                if (response.data) {
                   this.setLinkToAvatar(null);
                }
@@ -326,7 +326,7 @@ export default {
          }
       },
       getUnderGroups(parent_id) {
-         return axios.get(`/api/groups/underGroup?group_id=${parent_id}`)
+         return axios.get(`${process.env.VUE_APP_API_URL}/api/groups/underGroup?group_id=${parent_id}`)
       },
       updateGroup(res) {
          this.getUnderGroups(res.group.groups_id).then(rep => {
@@ -346,8 +346,8 @@ export default {
       },
 
       updateEstablishment() {
-         axios.get("/api/groups/findIDOfDiscoodle").then(response => {
-            axios.get(`/api/groups/underGroup?group_id=${response.data}`).then(rep => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/groups/findIDOfDiscoodle`).then(response => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/groups/underGroup?group_id=${response.data}`).then(rep => {
                this.establishments = rep.data;
             })
          })
@@ -380,8 +380,8 @@ export default {
             this.groups = [];
          if (reset_est) {
             this.establishments = [];
-            axios.get("/api/groups/findIDOfDiscoodle").then(response => {
-               axios.get(`/api/groups/underGroup?group_id=${response.data}`).then(rep => {
+            axios.get(`${process.env.VUE_APP_API_URL}/api/groups/findIDOfDiscoodle`).then(response => {
+               axios.get(`${process.env.VUE_APP_API_URL}/api/groups/underGroup?group_id=${response.data}`).then(rep => {
                   this.establishments = rep.data;
                })
             })
@@ -414,7 +414,7 @@ export default {
                elt.childs.forEach(group => {
                   if (group.type === "SUBJECTS") {
                      axios.post(
-                           `/api/groups/addNewMemberInGroup?group_id=${group.groups_id}&user_id=${this.getUser.id}&token=${group.token}`
+                           `${process.env.VUE_APP_API_URL}/api/groups/addNewMemberInGroup?group_id=${group.groups_id}&user_id=${this.getUser.id}&token=${group.token}`
                      ).catch(() => {
                         noErr = false;
                      })
@@ -423,7 +423,7 @@ export default {
             }
             if (!update) {
                axios.post(
-                     `/api/groups/addNewMemberInGroup?group_id=${elt.group.groups_id}&user_id=${this.getUser.id}&token=${elt.group.token}`
+                     `${process.env.VUE_APP_API_URL}/api/groups/addNewMemberInGroup?group_id=${elt.group.groups_id}&user_id=${this.getUser.id}&token=${elt.group.token}`
                ).catch(() => {
                   noErr = false;
                })
@@ -440,7 +440,7 @@ export default {
       },
 
       requestTeacher() {
-         axios.post(`/api/TeacherRequest/addTeacherRequest?user_id=${this.getUser.id}`).then(response => {
+         axios.post(`${process.env.VUE_APP_API_URL}/api/TeacherRequest/addTeacherRequest?user_id=${this.getUser.id}`).then(response => {
             if (response.data !== null) {
                this.requests.teacher.request = response.data;
                this.requests.teacher.requestState = true;
@@ -452,8 +452,8 @@ export default {
       },
 
       async askEstablishment() {
-         await axios.get("/api/groups/findIDOfDiscoodle").then(response => {
-            axios.post(`/api/establishmentRequest/addEstablishmentRequest`, {
+         await axios.get(`${process.env.VUE_APP_API_URL}/api/groups/findIDOfDiscoodle`).then(response => {
+            axios.post(`${process.env.VUE_APP_API_URL}/api/establishmentRequest/addEstablishmentRequest`, {
                parent_id: response.data,
                user_id: this.getUser.id,
                depth: 2,
@@ -535,12 +535,12 @@ export default {
    mounted() {
       this.isAuthentificated = (JSON.stringify(this.getUser) !== JSON.stringify({}));
       if (this.isAuthentificated) {
-         axios.get(`/api/users/findByUserName?username=${this.getUser.username}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${this.getUser.username}`).then(response => {
             this.setUser(response.data);
          });
          this.updateEstablishment();
 
-         axios.get(`/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/users/seeAllGroups?user_id=${this.getUser.id}`).then(response => {
             const groups = response.data.sort((a, b) => (
                   a.depth - b.depth
             )).filter(elt => (
@@ -585,7 +585,7 @@ export default {
             }, 500)
          });
 
-         axios.get(`/api/TeacherRequest/getTeacherRequestOfUser?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/TeacherRequest/getTeacherRequestOfUser?user_id=${this.getUser.id}`).then(response => {
             if (response.data?.status === 'ACCEPTEE')
                this.getUser.role = "TEACHER";
             if (response.data) {
@@ -597,7 +597,7 @@ export default {
             }
          });
 
-         axios.get(`/api/establishmentRequest/getEstablishmentRequestOfUser?user_id=${this.getUser.id}`).then(response => {
+         axios.get(`${process.env.VUE_APP_API_URL}/api/establishmentRequest/getEstablishmentRequestOfUser?user_id=${this.getUser.id}`).then(response => {
             this.requests.establishments.list = response.data.filter(e => {
                return e.status === 'ACCEPTEE' || e.status === 'COURS'
             });

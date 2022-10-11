@@ -375,7 +375,7 @@ export default {
          if (this.addGroup.data.init.length > 4)
             this.addGroup.data.init = this.addGroup.data.init.replaceAll(" ", "").substring(0, 4);
          if ((event.type === 'keydown' && event.keyCode === 13) || event.type === 'click') {
-            axios.post("/api/groups/addNewGroup", {
+            axios.post(`${process.env.VUE_APP_API_URL}/api/groups/addNewGroup`, {
                parent_id: this.getGroup.groups_id,
                user_id: this.getUser.id,
                depth: this.getGroup.depth + 1,
@@ -392,12 +392,12 @@ export default {
       removeUsers() {
          this.users.selection.forEach(elt => {
             this.users.list.splice(this.users.list.indexOf(elt), 1);
-            axios.delete(`/api/groups/deleteUser?user_id=${elt.id}&group_id=${this.getGroup.groups_id}`)
+            axios.delete(`${process.env.VUE_APP_API_URL}/api/groups/deleteUser?user_id=${elt.id}&group_id=${this.getGroup.groups_id}`)
          })
       },
       removeAll() {
          this.users.list.forEach(elt => {
-            axios.delete(`/api/groups/deleteUser?user_id=${elt.id}&group_id=${this.getGroup.groups_id}`)
+            axios.delete(`${process.env.VUE_APP_API_URL}/api/groups/deleteUser?user_id=${elt.id}&group_id=${this.getGroup.groups_id}`)
          })
          this.users.list = [];
       },
@@ -417,7 +417,7 @@ export default {
       },
       uploadFile() {
          axios({
-            url: `/api/uploadfile/uploadSubject?group_id=${this.getGroup.groups_id}`,
+            url: `${process.env.VUE_APP_API_URL}/api/uploadfile/uploadSubject?group_id=${this.getGroup.groups_id}`,
             method: 'POST',
             data: this.formData,
             headers: {
@@ -468,7 +468,7 @@ export default {
             right += "l";
          if (right.length === 0)
             right = "-"
-         axios.put(`/api/groups/modifyRightsForRole?role_id=${this.roleToEdit.role.role_id}&rights=${right}`)
+         axios.put(`${process.env.VUE_APP_API_URL}/api/groups/modifyRightsForRole?role_id=${this.roleToEdit.role.role_id}&rights=${right}`)
       },
 
       prepareModifyRoles() {
@@ -477,7 +477,7 @@ export default {
          this.loadRoles();
       },
       async loadRoles() {
-         await axios.get(`/api/groups/getRoleByGroupAndUser?group_id=${this.getGroup.groups_id}&user_id=${this.users.selection[0].id}`).then(response => {
+         await axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?group_id=${this.getGroup.groups_id}&user_id=${this.users.selection[0].id}`).then(response => {
             this.modifyRole.userRoles = response.data.map(e => {
                return {
                   label: e.name,
@@ -486,7 +486,7 @@ export default {
                }
             });
          });
-         await axios.get(`/api/groups/getAllRolesByGroup?group_id=${this.getGroup.groups_id}`).then(response => {
+         await axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getAllRolesByGroup?group_id=${this.getGroup.groups_id}`).then(response => {
             this.modifyRole.groupRoles = response.data;
          });
       },
@@ -500,7 +500,7 @@ export default {
       },
       addRoleForUser() {
          this.modifyRole.rolesToAdd.forEach(elt => {
-            axios.post(`/api/groups/addRoleForUser?user_id=${this.users.selection[0].id}&role_id=${elt.role_id}`)
+            axios.post(`${process.env.VUE_APP_API_URL}/api/groups/addRoleForUser?user_id=${this.users.selection[0].id}&role_id=${elt.role_id}`)
          });
          this.modifyRole.rolesToAdd.forEach(elt => {
             this.modifyRole.userRoles.push({
@@ -512,7 +512,7 @@ export default {
          this.modifyRole.rolesToAdd = []
       },
       deleteRoleForUser(role) {
-         axios.delete(`/api/groups/removeRoleForUser?user_id=${this.users.selection[0].id}&role_id=${role.role_id}`).then(() => {
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/groups/removeRoleForUser?user_id=${this.users.selection[0].id}&role_id=${role.role_id}`).then(() => {
             this.modifyRole.userRoles = this.modifyRole.userRoles.filter(e => {
                return e.value.role_id !== role.role_id;
             })
@@ -520,7 +520,7 @@ export default {
       },
 
       addNewRole() {
-         axios.post(`/api/groups/addRoleForGroup?group_id=${this.getGroup.groups_id}&role_name=${this.createRole.value}&rights=sr`).then(response => {
+         axios.post(`${process.env.VUE_APP_API_URL}/api/groups/addRoleForGroup?group_id=${this.getGroup.groups_id}&role_name=${this.createRole.value}&rights=sr`).then(response => {
             this.getGroup.roles.push(response.data);
          })
 
@@ -528,7 +528,7 @@ export default {
          this.createRole.show = false;
       },
       deleteRole() {
-         axios.delete(`/api/groups/deleteRole?role_id=${this.roleToEdit.role.role_id}`).then(() => {
+         axios.delete(`${process.env.VUE_APP_API_URL}/api/groups/deleteRole?role_id=${this.roleToEdit.role.role_id}`).then(() => {
             this.getGroup.roles = this.getGroup.roles.filter(e => {
                return e.role_id !== this.roleToEdit.role.role_id;
             })
@@ -563,7 +563,7 @@ export default {
          if (a.last_name === b.last_name)
             return 0;
       });
-      axios.get(`/api/groups/getRoleByGroupAndUser?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
+      axios.get(`${process.env.VUE_APP_API_URL}/api/groups/getRoleByGroupAndUser?group_id=${this.getGroup.groups_id}&user_id=${this.getUser.id}`).then(response => {
          this.roles_idList = response.data.map(e => {
             return e.role_id
          })

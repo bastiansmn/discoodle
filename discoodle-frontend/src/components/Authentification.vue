@@ -69,7 +69,7 @@ export default {
    methods: {
       userRegistration() {
          // TODO : Changer tous les appels vers l'api (localhost:8080 si dev, rien si prod
-         axios.post(`/api/registration`, {
+         axios.post(`${process.env.VUE_APP_API_URL}/api/registration`, {
             mail: document.querySelector("input[name=mailReg]").value,
             username: document.querySelector("input[name=username]").value,
             password: document.querySelector("input[name=passwordReg]").value,
@@ -87,7 +87,7 @@ export default {
          });
       },
       login() {
-         axios.post(`/api/registration/login`, {
+         axios.post(`${process.env.VUE_APP_API_URL}/api/registration/login`, {
             username: document.querySelector("input[name=userlog]").value,
             password: document.querySelector("input[name=passwordlog]").value,
          }).then(response => {
@@ -96,7 +96,7 @@ export default {
                if (document.querySelector(".login > div > label > input[type=checkbox]").checked)
                   vueCookie.set("username", username, {expires: '1Y'});
 
-               axios.get(`/api/users/findByUserName?username=${username}`).then(response => {
+               axios.get(`${process.env.VUE_APP_API_URL}/api/users/findByUserName?username=${username}`).then(response => {
                   if (!response.data.locked) {
                      this.setUser(response.data);
                      this.$emit("logSuccess")

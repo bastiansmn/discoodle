@@ -467,7 +467,7 @@ export default {
                   user_id: obj.user_id
                });
 
-               axios.get(`/api/users/infos?user_id=${obj.user_id}`).then(response => {
+               axios.get(`${process.env.VUE_APP_API_URL}/api/users/infos?user_id=${obj.user_id}`).then(response => {
                   if (this.userWatching.indexOf(response.data) !== -1)
                      this.userWatching.push(response.data);
                });

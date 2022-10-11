@@ -15,22 +15,22 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("SELECT user FROM User user where user.username = :username")
-    Optional<User> getUserByUserName(String username);
+    Optional<User> getUserByUserName(@Param("username") String username);
 
     @Query("SELECT user FROM User user where user.mail = :mail")
-    Optional<User> getUserByMail(String mail);
+    Optional<User> getUserByMail(@Param("mail") String mail);
 
     @Query("SELECT friendships.sender_id FROM Friendships friendships where friendships.receiver_id = :user_id")
-    List<Long> getFriendListCompleteForReceiver(Long user_id);
+    List<Long> getFriendListCompleteForReceiver(@Param("user_id") Long user_id);
 
     @Query("SELECT friendships.receiver_id FROM Friendships friendships where friendships.sender_id = :user_id")
-    List<Long> getFriendListCompleteForSender(Long user_id);
+    List<Long> getFriendListCompleteForSender(@Param("user_id") Long user_id);
 
     @Query("SELECT friendships.sender_id FROM Friendships friendships where friendships.receiver_id = :user_id AND friendships.status = true")
-    List<Long> getFriendListForReceiver(Long user_id);
+    List<Long> getFriendListForReceiver(@Param("user_id") Long user_id);
 
     @Query("SELECT friendships.receiver_id FROM Friendships friendships where friendships.sender_id = :user_id AND friendships.status = true")
-    List<Long> getFriendListForSender(Long user_id);
+    List<Long> getFriendListForSender(@Param("user_id") Long user_id);
 
     @Query("SELECT user FROM User user where user.role= :role")
     Optional<User.Role> getUserByRole(User.Role role);
@@ -38,7 +38,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("UPDATE User user SET user.enabled = true WHERE user.mail = :mail")
-    int enableUser(String mail);
+    int enableUser(@Param("mail") String mail);
 
     @Transactional
     @Modifying(clearAutomatically = true)
